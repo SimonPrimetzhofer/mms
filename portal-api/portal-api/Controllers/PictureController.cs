@@ -28,46 +28,44 @@ namespace portal_api.Controllers
 
             //Include for joining foreign key relation-objects
             return await _context.Pictures
-                //.Include(p => p.Tags)
                 .ToListAsync();
         }
 
-        // GET: api/Pictures/ByLabel/:label
-        [HttpGet("ByLabel/{label}")]
-        public async Task<ActionResult<IEnumerable<PictureEntry>>> GetPicturesByLabel(string label)
+        // GET: api/Pictures/ByTag/:tag
+        [HttpGet("ByTag/{tag}")]
+        public async Task<ActionResult<IEnumerable<PictureEntry>>> GetPicturesByLabel(string tag)
         {
             return await _context.Pictures
-                //.Where(p => p.Tags.Contains(label))
-                //.Include(p => p.Tags)
+                .Where(p => p.Tag.Equals(tag))
                 .ToListAsync();
         }
 
-        // GET: api/Orders/5
-       /* [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
+        // GET: api/Pictures/:id
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PictureEntry>> GetPictureEntry(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var picture = await _context.Pictures.FindAsync(id);
 
-            if (order == null)
+            if (picture == null)
             {
                 return NotFound();
             }
 
-            return order;
-        }*/
+            return picture;
+        }
 
-        // PUT: api/Orders/5
+        // PUT: api/Pictures/:id
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPictureEntry(int id, PictureEntry picture)
         {
-            if (id != order.Id)
+            if (id != picture.PictureId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(order).State = EntityState.Modified;
+            _context.Entry(picture).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +73,7 @@ namespace portal_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!PictureEntryExists(id))
                 {
                     return NotFound();
                 }
@@ -86,45 +84,45 @@ namespace portal_api.Controllers
             }
 
             return NoContent();
-        }*/
+        }
 
-        // POST: api/Orders
+        // POST: api/Pictures
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        /*[HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        [HttpPost]
+        public async Task<ActionResult<PictureEntry>> PostPictureEntry(PictureEntry picture)
         {
 
             //Get managed object from context, otherwise EF wants to insert a new customer
-            var c = await _context.Customers.FindAsync(order.CustomerId);
-            order.Customer = c;
+            var creator = await _context.PortalUsers.FindAsync(picture.Creator.UserId);
+            picture.Creator = creator;
 
-            _context.Orders.Add(order);
+            _context.Pictures.Add(picture);
             
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            return CreatedAtAction("PostPictures", new { id = picture.PictureId }, picture);
         }
 
-        // DELETE: api/Orders/5
+        // DELETE: api/Pictures/:id
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Order>> DeleteOrder(int id)
+        public async Task<ActionResult<PictureEntry>> DeletePicture(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
+            var picture = await _context.Pictures.FindAsync(id);
+            if (picture == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(order);
+            _context.Pictures.Remove(picture);
             await _context.SaveChangesAsync();
 
-            return order;
+            return picture;
         }
 
-        private bool OrderExists(int id)
+        private bool PictureEntryExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
-        }*/
+            return _context.Pictures.Any(e => e.PictureId == id);
+        }
     }
 }

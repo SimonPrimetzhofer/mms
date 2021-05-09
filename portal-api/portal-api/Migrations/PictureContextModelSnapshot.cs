@@ -32,6 +32,9 @@ namespace portal_api.Migrations
                     b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Tag")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

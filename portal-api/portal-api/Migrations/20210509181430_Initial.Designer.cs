@@ -10,7 +10,7 @@ using portal_api.Context;
 namespace portal_api.Migrations
 {
     [DbContext(typeof(PictureContext))]
-    [Migration("20210508132205_Initial")]
+    [Migration("20210509181430_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace portal_api.Migrations
 
                     b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()

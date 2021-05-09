@@ -17,8 +17,7 @@ namespace portal_api.Model
         [Required]
         public string Title { set; get; }
         
-        //[EnumDataType(typeof(Tag))]
-        //public ICollection<int> Tags { set; get; }
+        public string Tag { set; get; }
 
         [Required]
         public DateTime CreationDate { set; get; }
