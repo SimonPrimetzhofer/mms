@@ -46,7 +46,8 @@ namespace portal_api.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tag = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: true)
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {

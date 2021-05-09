@@ -32,6 +32,10 @@ namespace portal_api.Migrations
                     b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Tag")
                         .HasColumnType("nvarchar(max)");
 

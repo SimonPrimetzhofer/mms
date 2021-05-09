@@ -23,5 +23,8 @@ namespace portal_api.Model
         public DateTime CreationDate { set; get; }
 
         public PortalUser Creator { set; get; }
+
+        [Required]
+        public byte[] Image { set; get; }
     }
 }
