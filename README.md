@@ -9,6 +9,8 @@ Checkout repository
 
 "npm start" for starting the project
 
+"npm generate" for generating models and services according to OpenAPI-spec - you must have installed ng-openapi-gen globally ("npm i -g ng-openapi-gen")
+
 ### Backend: 
 
 Package Manager Console -> "update-database" to run migration for localdb
