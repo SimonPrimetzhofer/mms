@@ -7,12 +7,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxTileViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
+import { EditingComponent } from './editing/editing.component';
+import { RequestComponent } from './request/request.component';
+import { AdminRequestComponent } from './admin-request/admin-request.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PortalComponent
+    PortalComponent,
+    EditingComponent,
+    RequestComponent,
+    AdminRequestComponent,
+    ProfileSettingsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +30,10 @@ import { DxTileViewModule } from 'devextreme-angular';
     BrowserAnimationsModule,
     NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    DxTileViewModule
+    DxTileViewModule,
+    DxTabsModule,
+    DxButtonModule,
+    DxTextBoxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

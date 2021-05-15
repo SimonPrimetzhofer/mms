@@ -25,5 +25,7 @@ namespace portal_api.Model
 
         [Required]
         public ICollection<PictureEntry> PictureEntries { set; get; }
+
+        public bool IsAdmin { set; get; }
     }
 }
