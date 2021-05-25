@@ -13,6 +13,9 @@ import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './api/services/authentication.service';
+import { AuthState } from './login/state/auth.state';
+import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,14 +31,15 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([AuthState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     DxTileViewModule,
     DxTabsModule,
     DxButtonModule,
-    DxTextBoxModule
+    DxTextBoxModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
