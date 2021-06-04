@@ -19,6 +19,8 @@ namespace portal_api.Model
         [Required]
         public DateTime CreationDate { set; get; }
 
+        public int? CreatorUserId { set; get; }
+        [Required]
         public PortalUser Creator { set; get; }
 
         [Required]

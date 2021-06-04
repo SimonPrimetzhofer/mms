@@ -105,16 +105,6 @@ namespace portal_api.Controllers
 
             pictureEntry.Image = Convert.FromBase64String(picture.Image);
 
-            //foreach (var file in Request.Form.Files)
-            //{
-            //    MemoryStream ms = new MemoryStream();
-            //    await file.CopyToAsync(ms);
-            //    pictureEntry.Image = ms.ToArray();
-
-            //    ms.Close();
-            //    await ms.DisposeAsync();
-            //}
-
             _context.Pictures.Add(pictureEntry);
             
             await _context.SaveChangesAsync();
