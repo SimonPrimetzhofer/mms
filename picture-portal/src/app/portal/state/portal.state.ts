@@ -4,7 +4,7 @@ import produce from 'immer';
 import { PortalUser } from 'src/app/api/models';
 import { PictureService } from 'src/app/api/services';
 import { PictureEntry } from '../../api/models/picture-entry';
-import { LoadPictures } from './portal.state.actions';
+import { LoadPictures, SetUser } from './portal.state.actions';
 
 export interface PortalStateModel {
     pictures: PictureEntry[];
@@ -38,6 +38,13 @@ export class PortalState {
         const pictures = await this.pictureService.pictureGet().toPromise();
         ctx.patchState(produce(ctx.getState(), draft => {
             draft.pictures = pictures;
+        }));
+    }
+
+    @Action(SetUser)
+    setUser(ctx: StateContext<PortalStateModel>, action: SetUser) {
+        ctx.patchState(produce(ctx.getState(), draft => {
+            draft.user = action.user;
         }));
     }
 }
