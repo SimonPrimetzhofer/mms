@@ -38,6 +38,7 @@ import { PortalState } from './portal/state/portal.state';
     DxButtonModule,
     DxTextBoxModule,
     HttpClientModule,
+    DxPopoverModule,
     ApiModule.forRoot({
       rootUrl: 'https://localhost:44384'
     }),
