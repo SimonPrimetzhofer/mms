@@ -24,7 +24,8 @@ export class PortalComponent implements OnInit {
   }
 
   openDetail($event: any) {
-    // TODO: ...
+    // TODO: open bigger view with metadata
+    console.log($event);
   }
 
   convertBase64ToImage(base64Image: string) {
