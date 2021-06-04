@@ -43,8 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   filterPictures($event: any) {
-    console.log($event);
-    // call action in store with $event.value
+    this.router.navigate(['Pictures', $event.value]);
   }
 
   logout() {
