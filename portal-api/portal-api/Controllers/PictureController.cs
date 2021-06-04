@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using portal_api.Model;
 using portal_api.Context;
+using System.IO;
 
 namespace portal_api.Controllers
 {
@@ -90,18 +91,35 @@ namespace portal_api.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<PictureEntry>> PostPictureEntry(PictureEntry picture)
+        public async Task<ActionResult<PictureEntry>> PostPictureEntry(PictureEntryDTO picture)
         {
+
+            PictureEntry pictureEntry = new ();
+            pictureEntry.Title = picture.Title;
+            pictureEntry.Tag = picture.Tag;
+            pictureEntry.CreationDate = picture.CreationDate;
 
             //Get managed object from context, otherwise EF wants to insert a new customer
             var creator = await _context.PortalUsers.FindAsync(picture.Creator.UserId);
-            picture.Creator = creator;
+            pictureEntry.Creator = creator;
 
-            _context.Pictures.Add(picture);
+            pictureEntry.Image = Convert.FromBase64String(picture.Image);
+
+            //foreach (var file in Request.Form.Files)
+            //{
+            //    MemoryStream ms = new MemoryStream();
+            //    await file.CopyToAsync(ms);
+            //    pictureEntry.Image = ms.ToArray();
+
+            //    ms.Close();
+            //    await ms.DisposeAsync();
+            //}
+
+            _context.Pictures.Add(pictureEntry);
             
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("PostPictures", new { id = picture.PictureId }, picture);
+            return CreatedAtAction("PostPictureEntry", new { id = pictureEntry.PictureId }, pictureEntry);
         }
 
         // DELETE: api/Pictures/:id

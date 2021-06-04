@@ -2,5 +2,6 @@
     <dxi-item *dxTemplate="let tile of 'pictureViewTemplate'" [widthRatio]="1" [heightRatio]="1">
         <!-- show image -->
         {{ tile.title }}
+        <img [width]="200" [height]="200" [src]="convertBase64ToImage(tile.image)" />
     </dxi-item>
 </dx-tile-view>
