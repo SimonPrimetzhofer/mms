@@ -13,6 +13,9 @@ import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { LoginComponent } from './login/login.component';
+import { ApiModule } from './api/api.module';
+import { HttpClientModule } from '@angular/common/http';
+import { PortalState } from './portal/state/portal.state';
 
 @NgModule({
   declarations: [
@@ -28,12 +31,17 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([PortalState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     DxTileViewModule,
     DxTabsModule,
     DxButtonModule,
     DxTextBoxModule,
+    HttpClientModule,
+    DxPopoverModule,
+    ApiModule.forRoot({
+      rootUrl: 'https://localhost:44384'
+    }),
     DxPopoverModule
   ],
   providers: [],

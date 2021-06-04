@@ -50,4 +50,5 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new SetUser(null));
     this.router.navigate(['']);
   }
+
 }
