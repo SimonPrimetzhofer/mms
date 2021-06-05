@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace portal_api.Model
@@ -21,6 +22,7 @@ namespace portal_api.Model
         public string Mail { set; get; }
 
         [Required]
+        [JsonIgnore]
         public string Password { set; get; }
 
         [Required]
