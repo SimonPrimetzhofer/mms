@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxButtonModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxFormModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
 import { EditingComponent } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -37,6 +37,7 @@ import { PortalState } from './portal/state/portal.state';
     DxTabsModule,
     DxButtonModule,
     DxTextBoxModule,
+    DxFormModule,
     HttpClientModule,
     DxPopoverModule,
     ApiModule.forRoot({
