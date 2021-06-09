@@ -1,6 +1,9 @@
-<dx-tile-view direction="vertical" itemTemplate="pictureViewTemplate" [dataSource]="pictures" [baseItemWidth]="200" (onItemClick)="openDetail($event)" [baseItemHeight]="200">
-    <dxi-item *dxTemplate="let tile of 'pictureViewTemplate'" [widthRatio]="1" [heightRatio]="1">
-        <!-- show image -->
-        {{ tile.title }}
-    </dxi-item>
+<dx-tile-view direction="vertical" itemTemplate="pictureViewTemplate" [dataSource]="pictures" [baseItemWidth]="200"
+    (onItemClick)="openDetail($event)" [baseItemHeight]="200">
+    <div *dxTemplate="let tile of 'pictureViewTemplate'">
+        <dxi-item [widthRatio]="1" [heightRatio]="1">
+            {{ tile.title }}
+            <img [width]="200" [height]="200" [src]="convertBase64ToImage(tile.image)" />
+        </dxi-item>
+    </div>
 </dx-tile-view>

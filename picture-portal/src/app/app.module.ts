@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxButtonModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
 import { EditingComponent } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -15,7 +15,9 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './api/services/authentication.service';
 import { AuthState } from './login/state/auth.state';
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { ApiModule } from './api/api.module';
+import { HttpClientModule } from '@angular/common/http';
+import { PortalState } from './portal/state/portal.state';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,12 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     DxTabsModule,
     DxButtonModule,
     DxTextBoxModule,
-    HttpClientModule
+    HttpClientModule,
+    DxPopoverModule,
+    ApiModule.forRoot({
+      rootUrl: 'https://localhost:44384'
+    }),
+    DxPopoverModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]

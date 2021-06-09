@@ -11,12 +11,13 @@ import { RequestComponent } from './request/request.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
-  { path: 'Pictures', component: PortalComponent },
+  { path: 'Pictures/:filter', component: PortalComponent },
   { path: 'Edit', component: EditingComponent, canActivate: [ LoginGuard ] },
   { path: 'Request', component: RequestComponent, canActivate: [ LoginGuard ] },
   { path: 'Admin-Request', component: AdminRequestComponent, canActivate: [ AdminGuard ] },
   { path: 'Settings', component: ProfileSettingsComponent, canActivate: [ LoginGuard ] },
-  { path: '', redirectTo: 'Pictures', pathMatch: 'full' }
+  { path: '', redirectTo: 'Pictures/all', pathMatch: 'full' },
+  { path: 'Pictures', redirectTo: 'Pictures/all', pathMatch: 'full' }
 ];
 
 @NgModule({

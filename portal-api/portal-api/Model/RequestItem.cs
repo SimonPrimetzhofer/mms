@@ -20,6 +20,16 @@ namespace portal_api.Model
         [Required]
         public string Description { set; get; }
 
-        public bool IsAdmin { set; get; }
+        public int? RelatedPicturePictureId { set; get; }
+
+        [Required]
+        public PictureEntry RelatedPicture { set; get; }
+
+        public int? RelatedPersonUserId { set; get; }
+
+        [Required]
+        public PortalUser RelatedPerson { set; get; }
+
+        
     }
 }

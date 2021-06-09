@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { PortalUser } from './api/models';
 import { PortalState } from './portal/state/portal.state';
+import { SetUser } from './portal/state/portal.state.actions';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,11 @@ export class AppComponent implements OnInit {
       { text: "Request" }
   ];
 
+  menuVisible = false;
+
   constructor(private router: Router,
-    private store: Store) {}
+    private store: Store,
+    private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // user should be logged in already
@@ -31,6 +35,7 @@ export class AppComponent implements OnInit {
     if(!!this.user?.isAdmin) {
       this.tabs.push({ text: 'Admin-Request' });
     }
+    this.cd.detectChanges();
   }
 
   selectTab($event: any) {
@@ -38,7 +43,12 @@ export class AppComponent implements OnInit {
   }
 
   filterPictures($event: any) {
-    console.log($event);
-    // call action in store with $event.value
+    this.router.navigate(['Pictures', $event.value]);
   }
+
+  logout() {
+    this.store.dispatch(new SetUser(null));
+    this.router.navigate(['']);
+  }
+
 }

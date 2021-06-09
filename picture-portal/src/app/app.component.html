@@ -6,11 +6,20 @@
         <dx-text-box placeholder="Search..." (onValueChanged)="filterPictures($event)"></dx-text-box>
     </div>
     <!-- TODO: small popup where a user can choose profile settings, login, logout, etc... -->
-    <div class="col-1 btn">
-        <span class="dx-icon-menu" style="font-size: 35px"></span>
+    <div class="col-1 btn" id="menuIcon">
+        <span class="dx-icon-menu" style="font-size: 35px" (click)="menuVisible = !menuVisible"></span>
     </div>
 </div>
 <dx-tabs [dataSource]="tabs" (onItemClick)="selectTab($event)"></dx-tabs>
 <div class="p-3">
     <router-outlet></router-outlet>
 </div>
+
+<dx-popover [width]="150" [height]="180" [showTitle]="true" title="Settings"
+    [(visible)]="menuVisible" target="#menuIcon" position="bottom">
+    <div *dxTemplate="let data of 'content'">
+        <p class="pointer" routerLink="/Settings" (click)="menuVisible = false">Profile settings</p>
+        <p class="pointer" routerLink="Pictures/my" (click)="menuVisible = false">My pictures</p>
+        <p class="pointer" (click)="logout()" (click)="menuVisible = false">Logout</p>
+    </div>
+</dx-popover>
