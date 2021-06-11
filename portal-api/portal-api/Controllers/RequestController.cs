@@ -37,14 +37,15 @@ namespace portal_api.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<PictureEntry>> PostRequest(RequestItemDTO request)
         {
             RequestItem requestItem = new();
             requestItem.Title = request.Title;
             requestItem.Description = request.Description;
 
-            requestItem.RelatedPicture = await _context.Pictures.FindAsync(request.RelatedPicture);
-            requestItem.RelatedPerson = requestItem.RelatedPicture?.Creator;
+            requestItem.RelatedPicturePictureId = request.RelatedPicture;
+            requestItem.RelatedPerson = await this.User.Get(_context);
 
             if (requestItem.RelatedPicture == null)
             {
