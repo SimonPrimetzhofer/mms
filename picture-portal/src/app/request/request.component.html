@@ -1,23 +1,25 @@
-<dx-form id="form" [formData]="details">
-	<dxi-item itemType="group">
-        <dxi-item dataField="Title">
-            <dxi-validation-rule 
-                type="required"
-                message="Title is required">
-            </dxi-validation-rule>
+<form (submit)="submit($event)">
+    <dx-form [formData]="details">
+        <dxi-item itemType="group">
+            <dxi-item dataField="title">
+                <dxi-validation-rule 
+                    type="required"
+                    message="Title is required">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="description" [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 140 }">
+                <dxi-validation-rule 
+                    type="required"
+                    message="Description is required">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="imageURL">
+            </dxi-item>
         </dxi-item>
-		<dxi-item dataField="Description" [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 140 }">
-            <dxi-validation-rule 
-                type="required"
-                message="Description is required">
-            </dxi-validation-rule>
+        <dxi-item 
+            itemType="button"
+            horizontalAlignment="left"
+            [buttonOptions]="{text: 'Submit', type: 'success', useSubmitBehavior: true }">
         </dxi-item>
-        <dxi-item dataField="ImageURL">
-        </dxi-item>
-	</dxi-item>
-    <dxi-item 
-        itemType="button"
-        horizontalAlignment="left"
-        [buttonOptions]="{text: 'Submit', type: 'success', useSubmitBehavior: true }">
-    </dxi-item>
-</dx-form>
+    </dx-form>
+</form>
