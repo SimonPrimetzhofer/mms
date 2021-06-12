@@ -8,7 +8,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
 import { DxButtonModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
-import { EditingComponent } from './editing/editing.component';
+import { EditingComponent, EditingDialog } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
@@ -16,6 +16,16 @@ import { LoginComponent } from './login/login.component';
 import { ApiModule } from './api/api.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PortalState } from './portal/state/portal.state';
+import { MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,7 +35,8 @@ import { PortalState } from './portal/state/portal.state';
     RequestComponent,
     AdminRequestComponent,
     ProfileSettingsComponent,
-    LoginComponent
+    LoginComponent,
+    EditingDialog
   ],
   imports: [
     BrowserModule,
@@ -43,8 +54,19 @@ import { PortalState } from './portal/state/portal.state';
     ApiModule.forRoot({
       rootUrl: 'https://localhost:44384'
     }),
-    DxPopoverModule
+    DxPopoverModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatCardModule,
+    FormsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
+  entryComponents: [EditingDialog],
   providers: [],
   bootstrap: [AppComponent]
 })

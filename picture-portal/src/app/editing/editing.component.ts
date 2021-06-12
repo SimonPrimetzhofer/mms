@@ -1,5 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import ImageEditor from 'tui-image-editor';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatChipInputEvent } from '@angular/material/chips';
+
+export interface DialogData {
+  name: string;
+  tags: string[];
+}
 
 @Component({
   selector: 'app-editing',
@@ -8,26 +16,96 @@ import ImageEditor from 'tui-image-editor';
 })
 export class EditingComponent implements OnInit, AfterViewInit {
 
+  templates = [];
+  editor: ImageEditor;
+  name: string = "";
+  tags: string[] = [];
+
   @ViewChild('container') container: ElementRef;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    
+    this.loadMemeTemplates()
+  }
+
+  loadMemeTemplates(): void {
+    // TODO: Not use any pictures from Internet, but use the REST
+    this.templates.push("https://indianmemetemplates.com/wp-content/uploads/Quiz-Kid.jpg")
+    this.templates.push("https://www.meme-arsenal.com/memes/879b7d8fa64a2334700021391ee14d88.jpg")
+    this.templates.push("https://64.media.tumblr.com/0329822876098b3fe73a8ef6ea0628fb/bfdb670f69f69133-83/s1280x1920/9252eb69a3f9d66092944eb1d2598a8c1801bc69.jpg")
+    this.templates.push("https://i.imgflip.com/2mwc77.jpg")
+    this.templates.push("https://i.imgflip.com/u0pf0.jpg")
+  }
+
+  setTemplateActive(template: string): void {
+    this.editor.loadImageFromURL(template, template.split("/")[template.split("/").length-1]);
+  }
+
+  upload(): void {
+    const dialogRef = this.dialog.open(EditingDialog, {
+      width: "25%",
+      data: {name: this.name, tags: this.tags}
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      this.name = res.name;
+      this.tags = res.tags;
+      var base64Meme = this.editor.toDataURL().split(",")[1]
+
+      // TODO: POST-Aufruf
+    })
   }
 
   ngAfterViewInit(): void {
-    new ImageEditor(this.container.nativeElement, {
-      cssMaxHeight: 800,
+    this.editor = new ImageEditor(this.container.nativeElement, {
+      cssMaxHeight: 1000,
       cssMaxWidth: 1000,
       usageStatistics: false,
       includeUI: {
+        loadImage: {
+          path: this.templates[0],
+          name: 'SampleImage'
+        },
         uiSize: {
           width: '100%',
-          height: '800px'
+          height: '1000px'
         }
       }
     })
   }
+}
 
+@Component({
+  selector: 'editing-dialog',
+  templateUrl: 'editing.dialog.html',
+})
+export class EditingDialog {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  constructor(
+    public dialogRef: MatDialogRef<EditingDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    if (value) {
+      this.data.tags.push(value);
+    }
+
+    event.input.value = "";
+  }
+
+  remove(fruit: string): void {
+    const index = this.data.tags.indexOf(fruit);
+
+    if (index >= 0) {
+      this.data.tags.splice(index, 1);
+    }
+  }
 }
