@@ -1,6 +1,6 @@
 export class Login {
     static readonly type = '[Auth] Login';
-    constructor(public payload: { username: string; password: string }) {}
+    constructor(public payload: { userName: string; password: string }) {}
 }
   
 export class Logout {

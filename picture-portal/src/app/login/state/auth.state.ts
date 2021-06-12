@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import produce from 'immer';
 import { tap } from 'rxjs/operators';
 import { PortalUser } from 'src/app/api/models';
 import { AuthenticationService } from 'src/app/api/services/authentication.service';
@@ -29,28 +28,30 @@ export class AuthState {
     }
 
     @Selector()
-    isAuthenticated(state: AuthStateModel) {
-        return !!state.token && this.authenticationService.validateToken(state.token);
+    static token(state: AuthStateModel) {
+        return state.token;
+    }
+
+    @Selector()
+    static isAuthenticated(state: AuthStateModel) {
+        return !!state.token && state.user;
     }
 
     @Action(Login)
     login(ctx: StateContext<AuthStateModel>, action: Login) {
-        console.log("atate login")
-        return this.authenticationService.login(action.payload.username, action.payload.password).pipe(
-            tap((result) => {
+        let response = this.authenticationService.login(action.payload.userName, action.payload.password).pipe(
+            tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
                     user: result.user,
                     token: result.token
                 });
             })
         );
+        return response;
     }
-
-
 
     @Action(Logout)
     logout(ctx: StateContext<AuthStateModel>, action: Logout) {
-        console.log("atate logout")
         return this.authenticationService.logout().pipe(
             tap(() => {
                 ctx.patchState({

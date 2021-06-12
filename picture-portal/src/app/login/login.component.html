@@ -1,20 +1,29 @@
+
 <div class="form">
     <div class="dx-field-set">
         <div class="dx-fieldset-header">Log in</div>
-        <div class="dx-field">
-            <div class="dx-field-label">Username</div>
-            <div class="dx-field-value">
-                <dx-text-box id="login-name" [showClearButton]="true"></dx-text-box>
-            </div>
+        
+        
+        <div class="option">
+            <span>Username</span>
+            <dx-text-box name="Username" (onValueChanged)="setUserName($event)">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="First Name is required"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
         </div>
-        <div class="dx-field">
-            <div class="dx-field-label">Password</div>
-            <div class="dx-field-value">
-                <dx-text-box id="login-password" mode="password" [showClearButton]="true" ></dx-text-box>
-            </div>
+
+        <div class="option">
+            <span>Password</span>
+            <dx-text-box name="Password" mode="password" (onValueChanged)="setPassword($event)">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="First Name is required"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
         </div>
+
         <div class="dx-field">
-            <dx-button class="bt-login" icon="check" type="success" text="Log in" (onClick)="loginClick()"></dx-button>
+            <dx-button validation class="bt-login" icon="check" type="success" text="Log in" (onClick)="loginClick()" [useSubmitBehavior]="true"></dx-button>
             <dx-button class="bt-cancel" icon="remove" type="normal" text="Cancel" (onClick)="cancelClick()"></dx-button>
         </div>
     </div>  

@@ -10,5 +10,7 @@ namespace portal_api.Model
     {
         [Required]
         public string Token { get; set; }
+        [Required]
+        public PortalUser User { get; set; }
     }
 }

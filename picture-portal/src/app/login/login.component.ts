@@ -13,36 +13,48 @@ import { Login, Logout } from './state/auth.state.actions'
 })
 export class LoginComponent implements OnInit {
 
-  userName;
-  password;
+  userName: string;
+  password: string;
 
-  constructor(private router: Router, private store: Store) {  
-    if(this.store.selectSnapshot(AuthState.user)) {
+  constructor(private router: Router, private store: Store) {
+    if (this.store.selectSnapshot(AuthState.user)) {
       this.router.navigate(['/']);
     }
   }
 
   ngOnInit(): void {
+    this.userName = '';
+    this.password = '';
   }
 
-  loginClick(){
-    this.store.dispatch(new Login({ password: this.password, username: this.userName})).subscribe(
+  setUserName($event: any) {
+    this.userName = $event.value;
+  }
+
+  setPassword($event: any) {
+    this.password = $event.value;
+  }
+
+  loginClick() {
+    console.log(this.password + " " + this.userName);
+    if (this.password == '' || this.userName == '') {
+      return;
+    }
+    this.store.dispatch(new Login({ password: this.password, userName: this.userName })).subscribe(
       _ => {
-        console.log('login successfull');
-        this.router.navigate(['/Login']);
+        // console.log('login successfull');
+        this.router.navigate(['/']);
       },
       error => {
-        console.log('login failed');
+        // console.log('login failed');
         console.log(error);
         this.store.dispatch(new Logout);
       }
     );
-    console.log(this.store.selectSnapshot(AuthState.user)); // Log
   }
 
-  cancelClick(){
+  cancelClick() {
     this.store.dispatch(new Logout);
-    console.log(this.store.selectSnapshot(AuthState.user)); // Log
     this.router.navigate['/'];
   }
 
