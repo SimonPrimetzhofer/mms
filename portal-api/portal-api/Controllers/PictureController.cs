@@ -100,8 +100,11 @@ namespace portal_api.Controllers
             pictureEntry.CreationDate = picture.CreationDate;
 
             //Get managed object from context, otherwise EF wants to insert a new customer
-            var creator = await _context.PortalUsers.FindAsync(picture.Creator.UserId);
-            pictureEntry.Creator = creator;
+            if (picture.Creator != null)
+            {
+                var creator = await _context.PortalUsers.FindAsync(picture.Creator.UserId);
+                pictureEntry.Creator = creator;
+            }
 
             pictureEntry.Image = Convert.FromBase64String(picture.Image);
 
@@ -122,6 +125,7 @@ namespace portal_api.Controllers
                 return NotFound();
             }
 
+            _context.RequestItems.RemoveRange(_context.RequestItems.Where(x => x.RelatedPicture == picture));
             _context.Pictures.Remove(picture);
             await _context.SaveChangesAsync();
 

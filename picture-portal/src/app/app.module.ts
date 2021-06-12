@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxButtonModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxTemplateModule, DxPopupModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxFileUploaderModule } from 'devextreme-angular';
 import { EditingComponent } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { ApiModule } from './api/api.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PortalState } from './portal/state/portal.state';
+import { MyPicturesComponent } from './my-pictures/my-pictures.component';
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { PortalState } from './portal/state/portal.state';
     RequestComponent,
     AdminRequestComponent,
     ProfileSettingsComponent,
-    LoginComponent
+    LoginComponent,
+    MyPicturesComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,12 @@ import { PortalState } from './portal/state/portal.state';
     DxButtonModule,
     DxTextBoxModule,
     HttpClientModule,
+    DxPopoverModule,
+    MatIconModule,
+    DxTemplateModule, 
+    DxButtonModule, 
+    DxFileUploaderModule,
+    DxPopupModule, 
     DxPopoverModule,
     ApiModule.forRoot({
       rootUrl: 'https://localhost:44384'
