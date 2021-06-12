@@ -42,20 +42,18 @@ export class LoginComponent implements OnInit {
     }
     this.store.dispatch(new Login({ password: this.password, userName: this.userName })).subscribe(
       _ => {
-        // console.log('login successfull');
+        console.log('login successfull');
         this.router.navigate(['/']);
       },
       error => {
-        // console.log('login failed');
+        console.log('login failed');
         console.log(error);
         this.store.dispatch(new Logout);
       }
     );
   }
 
-  cancelClick() {
-    // this.store.dispatch(new Logout);
-    this.router.navigate(['/']);
+  registerClick() {
+    this.router.navigate(['/Register']);
   }
-
 }

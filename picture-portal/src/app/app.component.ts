@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { PortalUser } from './api/models';
 import { PortalState } from './portal/state/portal.state';
-import { SetUser } from './portal/state/portal.state.actions';
+import { Logout } from './portal/state/portal.state.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
       { text: "Request" }
   ];
 
+  isLoggedIn = false;
   menuVisible = false;
 
   constructor(private router: Router,
@@ -36,6 +37,14 @@ export class AppComponent implements OnInit {
       this.tabs.push({ text: 'Admin-Request' });
     }
     this.cd.detectChanges();
+    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
+    console.log("Logged in: " + this.isLoggedIn) 
+  }
+
+  settingsClick() {
+    this.menuVisible = !this.menuVisible;
+    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
+    console.log("Logged in: " + this.isLoggedIn) 
   }
 
   selectTab($event: any) {
@@ -47,8 +56,13 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(new SetUser(null));
+    this.store.dispatch(new Logout());
     this.router.navigate(['']);
+  }
+
+  login() {
+    console.log(this.store.selectSnapshot(PortalState.user));
+    this.router.navigate(['/Login']);
   }
 
 }

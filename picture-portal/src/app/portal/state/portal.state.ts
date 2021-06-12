@@ -5,7 +5,7 @@ import produce from 'immer';
 import { PortalUser } from 'src/app/api/models';
 import { PictureService, AuthenticationService } from 'src/app/api/services';
 import { PictureEntry } from '../../api/models/picture-entry';
-import { LoadPictures, SetUser, Login, Logout } from './portal.state.actions';
+import { LoadPictures, SetUser, Login, Register, Logout } from './portal.state.actions';
 
 export interface PortalStateModel {
     pictures: PictureEntry[];
@@ -58,12 +58,27 @@ export class PortalState {
 
     @Selector()
     static isAuthenticated(state: PortalStateModel) {
-        return !!state.token && state.user;
+        return !!state.token && !!state.user;
     }
 
     @Action(Login)
     login(ctx: StateContext<PortalStateModel>, action: Login) {
+        // console.log("state login...")
         let response = this.authenticationService.login(action.payload.userName, action.payload.password).pipe(
+            tap((result: { user: PortalUser, token: string }) => {
+                ctx.patchState({
+                    user: result.user,
+                    token: result.token
+                });
+            })
+        );
+        return response;
+    }
+
+    @Action(Register)
+    register(ctx: StateContext<PortalStateModel>, action: Register) {
+        // console.log("state register...")
+        let response = this.authenticationService.register(action.payload.userName, action.payload.email, action.payload.password).pipe(
             tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
                     user: result.user,
@@ -76,6 +91,7 @@ export class PortalState {
 
     @Action(Logout)
     logout(ctx: StateContext<PortalStateModel>, action: Logout) {
+        // console.log("state logout...")
         return this.authenticationService.logout().pipe(
             tap(() => {
                 ctx.patchState({

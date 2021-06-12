@@ -24,6 +24,11 @@ export class AuthenticationService extends BaseService {
       .pipe(map(res => res));
   }
 
+  register(userName: string, mail: string, password: string) {
+    return this.http.post<any>(`${this.rootUrl}/api/User/Signup`, { userName, mail, password})
+    .pipe(map(res => res));
+  }
+
   logout() {
     return of(null);
   }

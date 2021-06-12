@@ -86,7 +86,7 @@ namespace portal_api.Controllers
 
             string tokenString = GenerateJSONWebToken(result);
 
-            return new LoggedInDTO() { Token = tokenString };
+            return new LoggedInDTO() { User = result, Token = tokenString };
         }
 
         private async Task<PortalUser> AuthenticateUser(LoginDTO login)

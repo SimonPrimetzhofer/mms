@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';  
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,10 +16,11 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './login/jwt.interceptor';
 import { AuthenticationService } from './api/services/authentication.service';
-import { AuthState } from './login/state/auth.state';
 import { ApiModule } from './api/api.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PortalState } from './portal/state/portal.state';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -28,13 +30,15 @@ import { PortalState } from './portal/state/portal.state';
     RequestComponent,
     AdminRequestComponent,
     ProfileSettingsComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([AuthState]),
+    NgxsModule.forRoot([PortalState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     DxTileViewModule,
     DxTabsModule,
@@ -46,7 +50,8 @@ import { PortalState } from './portal/state/portal.state';
       rootUrl: 'https://localhost:44384'
     }),
     DxValidatorModule,
-    DxValidationGroupModule
+    DxValidationGroupModule,
+
   ],
   providers: [
     AuthenticationService,
