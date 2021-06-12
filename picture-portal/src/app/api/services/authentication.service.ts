@@ -19,7 +19,7 @@ export class AuthenticationService extends BaseService {
     super(config, http);
   }
 
-  login(userName: string, password: string) : Observable<any>{
+  login(userName: string, password: string) : Observable<{user: PortalUser, token: string}>{
     return this.http.post<any>(`${this.rootUrl}/api/User/Login`, { userName, password})
       .pipe(map(res => res));
   }

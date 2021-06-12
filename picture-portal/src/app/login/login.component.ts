@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 
-import { AuthState } from './state/auth.state'
-import { Login, Logout } from './state/auth.state.actions'
+import { PortalState } from '../portal/state/portal.state'
+import { Login, Logout } from '../portal/state/portal.state.actions'
 
 
 @Component({
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
   constructor(private router: Router, private store: Store) {
-    if (this.store.selectSnapshot(AuthState.user)) {
+    if (this.store.selectSnapshot(PortalState.user)) {
       this.router.navigate(['/']);
     }
   }
@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   cancelClick() {
-    this.store.dispatch(new Logout);
-    this.router.navigate['/'];
+    // this.store.dispatch(new Logout);
+    this.router.navigate(['/']);
   }
 
 }
