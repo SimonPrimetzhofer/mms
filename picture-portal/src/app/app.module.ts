@@ -7,7 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
+
 import { DxButtonModule, DxTemplateModule, DxPopupModule, DxPopoverModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxFileUploaderModule } from 'devextreme-angular';
+
 import { EditingComponent } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -48,6 +50,7 @@ import { MatIconModule } from '@angular/material/icon'
     DxFileUploaderModule,
     DxPopupModule, 
     DxPopoverModule,
+    DxPopupModule,
     ApiModule.forRoot({
       rootUrl: 'https://localhost:44384'
     }),

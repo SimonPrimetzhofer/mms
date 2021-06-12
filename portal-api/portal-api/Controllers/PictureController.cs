@@ -37,7 +37,7 @@ namespace portal_api.Controllers
         public async Task<ActionResult<IEnumerable<PictureEntry>>> GetPicturesByLabel(string tag)
         {
             return await _context.Pictures
-                .Where(p => p.Tag.Equals(tag))
+                .Where(p => p.Tag.Contains(tag))
                 .ToListAsync();
         }
 
