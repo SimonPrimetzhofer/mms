@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       this.tabs.push({ text: 'Admin-Request' });
     }
     this.cd.detectChanges();
-    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
+    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated);
   }
 
   settingsClick() {

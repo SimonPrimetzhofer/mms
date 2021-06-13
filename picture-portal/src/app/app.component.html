@@ -1,6 +1,6 @@
 <div class="row p-3">
     <div class="col-4">
-        <h1>Picture Portal</h1>
+        <h1 routerLink="/Pictures" class="pointer">Picture Portal</h1>
     </div>
     <div class="col-7 pt-2">
         <dx-text-box placeholder="Search..." (onValueChanged)="filterPictures($event)"></dx-text-box>
@@ -24,5 +24,3 @@
         <p class="pointer" routerLink="/Login" (click)="menuVisible = false" *ngIf="!isLoggedIn">Login</p>
     </div>
 </dx-popover>
-
-<!-- <tui-image-editor-svg-definitions></tui-image-editor-svg-definitions> -->
