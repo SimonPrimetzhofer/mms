@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { filter } from 'rxjs/operators';
 import { PortalUser } from './api/models';
 import { PortalState } from './portal/state/portal.state';
 import { Logout } from './portal/state/portal.state.actions';
@@ -26,16 +27,25 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   menuVisible = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private store: Store,
-    private cd: ChangeDetectorRef) {}
+    private cd: ChangeDetectorRef) {
+      // check if user is admin
+      router.events
+      .pipe(filter(e => e instanceof RouterEvent))
+      .subscribe(e => {
+        if ( this.tabs.length < 4 && !!this.user?.isAdmin ) {
+          this.tabs.push({ text: 'Admin-Request' });
+        }
+        else if ( this.tabs.length > 3 && !this.user?.isAdmin) {
+          this.tabs.pop();
+        }
+      });
+    }
 
   ngOnInit(): void {
     // user should be logged in already
-    // check if user is admin
-    if(!!this.user?.isAdmin) {
-      this.tabs.push({ text: 'Admin-Request' });
-    }
     this.cd.detectChanges();
     this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
   }
