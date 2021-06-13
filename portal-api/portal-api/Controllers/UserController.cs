@@ -41,6 +41,52 @@ namespace portal_api.Controllers
             return User.Get(_context);
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<PortalUser> Update([FromBody] UpdateUserDTO data)
+        {
+            PortalUser user = await this.User.Get(_context);
+
+            user.Username = data.Username;
+            user.Mail = data.Mail;
+
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        [Authorize]
+        [HttpPost("Password")]
+        public async Task<ActionResult<PortalUser>> UpdatePassword([FromBody] UpdatePasswordDTO data)
+        {
+            PortalUser user = await this.User.Get(_context);
+
+            PasswordVerificationResult result = hasher.VerifyHashedPassword(user, user.Password, data.OldPassword);
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return Forbid();
+            }
+
+            user.Password = hasher.HashPassword(user, data.NewPassword);
+
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<ActionResult> Delete()
+        {
+            PortalUser user = await this.User.Get(_context);
+
+            _context.PortalUsers.Remove(user);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
         public async Task<ActionResult<LoggedInDTO>> Login([FromBody] LoginDTO data)

@@ -12,6 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PortalComponent implements OnInit {
 
+  showDetailPopup = false;
+  pictureDetail: PictureEntry;
+
   get pictures(): PictureEntry[] {
     return this.store.selectSnapshot(PortalState.pictures);
   }
@@ -24,12 +27,16 @@ export class PortalComponent implements OnInit {
   }
 
   openDetail($event: any) {
-    // TODO: open bigger view with metadata
-    console.log($event);
+    this.showDetailPopup = !this.showDetailPopup;
+    this.pictureDetail = $event.itemData;
   }
 
   convertBase64ToImage(base64Image: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + base64Image);
+  }
+
+  convertStringToDate(dateString: string): Date {
+    return new Date(dateString);
   }
 
 }

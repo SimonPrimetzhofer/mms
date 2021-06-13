@@ -1,1 +1,45 @@
-<p>profile-settings works!</p>
+<form (submit)="update($event)">
+    <dx-form [(formData)]="details">
+        <dxi-item itemType="group">
+            <!--<dxi-item itemType="button" horizontalAlignment="left"
+                [buttonOptions]="{ text: 'Update profile picture', type: 'default' }"></dxi-item>-->
+            <dxi-item dataField="username">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="email">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item itemType="button" horizontalAlignment="left"
+                [buttonOptions]="{ text: 'Save', type: 'success', useSubmitBehavior: true }"></dxi-item>
+        </dxi-item>
+    </dx-form>
+</form>
+
+<form (submit)="updatePassword($event)">
+    <dx-form [(formData)]="details">
+        <dxi-item itemType="group" caption="Change password">
+            <dxi-item dataField="oldPassword" editorType="dxTextBox" [editorOptions]="{ mode: 'password' }">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="newPassword" editorType="dxTextBox" [editorOptions]="{ mode: 'password' }">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="confirmNewPassword" editorType="dxTextBox" [editorOptions]="{ mode: 'password' }">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="compare" [comparisonTarget]="passwordComparison"
+                    message="Password and Confirm Password do not match">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item itemType="button" horizontalAlignment="left"
+                [buttonOptions]="{ text: 'Submit', type: 'success', useSubmitBehavior: true }"></dxi-item>
+        </dxi-item>
+    </dx-form>
+</form>
+<form (submit)="deleteUser($event)">
+    <dx-form [(formData)]="details">
+        <dxi-item itemType="group">
+            <dxi-item itemType="button" horizontalAlignment="left"
+                [buttonOptions]="{ text: 'Delete account', type: 'danger', useSubmitBehavior: true }"></dxi-item>
+        </dxi-item>
+    </dx-form>
+</form>
