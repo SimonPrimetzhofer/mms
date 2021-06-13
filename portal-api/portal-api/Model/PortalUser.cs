@@ -26,6 +26,7 @@ namespace portal_api.Model
         public string Password { set; get; }
 
         [Required]
+        [JsonIgnore]
         public ICollection<PictureEntry> PictureEntries { set; get; }
 
         public bool IsAdmin { set; get; }
