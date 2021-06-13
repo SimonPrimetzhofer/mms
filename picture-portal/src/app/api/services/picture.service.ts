@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { PictureEntry } from '../models/picture-entry';
+import { PictureEntryDto } from '../models/picture-entry-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -115,7 +116,7 @@ export class PictureService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   picturePost$Plain$Response(params?: {
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<StrictHttpResponse<PictureEntry>> {
 
     const rb = new RequestBuilder(this.rootUrl, PictureService.PicturePostPath, 'post');
@@ -141,7 +142,7 @@ export class PictureService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   picturePost$Plain(params?: {
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<PictureEntry> {
 
     return this.picturePost$Plain$Response(params).pipe(
@@ -156,7 +157,7 @@ export class PictureService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   picturePost$Response(params?: {
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<StrictHttpResponse<PictureEntry>> {
 
     const rb = new RequestBuilder(this.rootUrl, PictureService.PicturePostPath, 'post');
@@ -182,7 +183,7 @@ export class PictureService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   picturePost(params?: {
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<PictureEntry> {
 
     return this.picturePost$Response(params).pipe(
