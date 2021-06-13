@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
-
-import { AuthState } from './state/auth.state'
+import { PortalState } from '../portal/state/portal.state';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -11,7 +10,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
-        let token = this.store.selectSnapshot(AuthState.token);
+        let token = this.store.selectSnapshot(PortalState.token);
         if (token) {
             request = request.clone({
                 setHeaders: {
