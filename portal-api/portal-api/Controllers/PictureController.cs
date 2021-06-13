@@ -29,6 +29,7 @@ namespace portal_api.Controllers
 
             //Include for joining foreign key relation-objects
             return await _context.Pictures
+                .Include(p => p.Creator)
                 .ToListAsync();
         }
 
@@ -38,6 +39,7 @@ namespace portal_api.Controllers
         {
             return await _context.Pictures
                 .Where(p => p.Tag.Contains(tag))
+                .Include(p => p.Creator)
                 .ToListAsync();
         }
 
@@ -101,7 +103,7 @@ namespace portal_api.Controllers
 
             //Get managed object from context, otherwise EF wants to insert a new customer
             var creator = await _context.PortalUsers.FindAsync(picture.CreatorId);
-            pictureEntry.Creator = creator;
+            pictureEntry.CreatorUserId = creator.UserId;
 
             pictureEntry.Image = Convert.FromBase64String(picture.Image);
 

@@ -5,21 +5,8 @@
         <input matInput placeholder="Name" [(ngModel)]="data.name">
     </mat-form-field>
     <mat-form-field style="width: 100%;">
-        <mat-label>Tags</mat-label>
-        <mat-chip-list #chipList aria-label="Tags selection">
-          <mat-chip
-            *ngFor="let tag of data.tags"
-            [selectable]="true"
-            (removed)="remove(tag)">
-            {{tag}}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="New tag..."
-            #input
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
+        <mat-label>Tag</mat-label>
+        <input placeholder="New tag..." matInput [(ngModel)]="data.tag">
       </mat-form-field>
 </div>
 <div mat-dialog-actions>

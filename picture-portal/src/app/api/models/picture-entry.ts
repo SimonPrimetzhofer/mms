@@ -4,6 +4,7 @@ import { PortalUser } from './portal-user';
 export interface PictureEntry {
   creationDate: Date;
   creator?: PortalUser;
+  creatorUserId?: number,
   image: string;
   pictureId?: number;
   tag?: null | string;

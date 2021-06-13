@@ -15,5 +15,5 @@ export class SetUser {
 export class UploadImage {
     static readonly type = '[Editing] Upload image';
 
-    constructor(public pictureEntry: PictureEntry) {}
+    constructor(public pictureEntry: any) {}
 }

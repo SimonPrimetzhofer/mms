@@ -2,14 +2,13 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import ImageEditor from 'tui-image-editor';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { Store } from '@ngxs/store';
 import { UploadImage } from '../portal/state/portal.state.actions';
 import { PortalState } from '../portal/state/portal.state';
 
 export interface DialogData {
   name: string;
-  tags: string[];
+  tag: string;
 }
 
 @Component({
@@ -19,10 +18,10 @@ export interface DialogData {
 })
 export class EditingComponent implements OnInit, AfterViewInit {
 
-  templates = [];
   editor: ImageEditor;
   name = "";
-  tags = "";
+  tag = "";
+  templates: string[] = [];
 
   @ViewChild('container') container: ElementRef;
 
@@ -34,7 +33,6 @@ export class EditingComponent implements OnInit, AfterViewInit {
   }
 
   loadMemeTemplates(): void {
-    // TODO: Not use any pictures from Internet, but use the REST
     this.templates.push("https://indianmemetemplates.com/wp-content/uploads/Quiz-Kid.jpg")
     this.templates.push("https://www.meme-arsenal.com/memes/879b7d8fa64a2334700021391ee14d88.jpg")
     this.templates.push("https://64.media.tumblr.com/0329822876098b3fe73a8ef6ea0628fb/bfdb670f69f69133-83/s1280x1920/9252eb69a3f9d66092944eb1d2598a8c1801bc69.jpg")
@@ -49,19 +47,18 @@ export class EditingComponent implements OnInit, AfterViewInit {
   upload(): void {
     const dialogRef = this.dialog.open(EditingDialog, {
       width: "25%",
-      data: {name: this.name, tags: this.tags}
+      data: {name: this.name, tag: this.tag}
     });
 
     dialogRef.afterClosed().subscribe(res => {
       const base64Meme = this.editor.toDataURL().split(",")[1]
 
-      // TODO: POST-Aufruf
       this.store.dispatch(new UploadImage({
-        creator: null, 
+        creatorId: this.store.selectSnapshot(PortalState.user)?.userId || 1, 
         creationDate: new Date(),
         image: base64Meme,
         title: res.name,
-        tag: res.tags
+        tag: res.tag
       }));
     })
   }
@@ -98,23 +95,5 @@ export class EditingDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    if (value) {
-      this.data.tags.push(value);
-    }
-
-    event.input.value = "";
-  }
-
-  remove(fruit: string): void {
-    const index = this.data.tags.indexOf(fruit);
-
-    if (index >= 0) {
-      this.data.tags.splice(index, 1);
-    }
   }
 }
