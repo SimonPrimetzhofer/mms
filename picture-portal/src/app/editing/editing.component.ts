@@ -3,6 +3,9 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from 
 import ImageEditor from 'tui-image-editor';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Store } from '@ngxs/store';
+import { UploadImage } from '../portal/state/portal.state.actions';
+import { PortalState } from '../portal/state/portal.state';
 
 export interface DialogData {
   name: string;
@@ -18,12 +21,13 @@ export class EditingComponent implements OnInit, AfterViewInit {
 
   templates = [];
   editor: ImageEditor;
-  name: string = "";
-  tags: string[] = [];
+  name = "";
+  tags = "";
 
   @ViewChild('container') container: ElementRef;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private store: Store) { }
 
   ngOnInit(): void {
     this.loadMemeTemplates()
@@ -49,11 +53,16 @@ export class EditingComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      this.name = res.name;
-      this.tags = res.tags;
-      var base64Meme = this.editor.toDataURL().split(",")[1]
+      const base64Meme = this.editor.toDataURL().split(",")[1]
 
       // TODO: POST-Aufruf
+      this.store.dispatch(new UploadImage({
+        creator: null, 
+        creationDate: new Date(),
+        image: base64Meme,
+        title: res.name,
+        tag: res.tags
+      }));
     })
   }
 

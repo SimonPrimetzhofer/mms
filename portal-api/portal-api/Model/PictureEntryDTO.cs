@@ -15,7 +15,7 @@ namespace portal_api.Model
 
         public DateTime CreationDate { set; get; }
 
-        public PortalUser Creator { set; get; }
+        public int CreatorId { set; get; }
         
         public string Image { set; get; }
     }

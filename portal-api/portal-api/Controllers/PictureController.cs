@@ -100,7 +100,7 @@ namespace portal_api.Controllers
             pictureEntry.CreationDate = picture.CreationDate;
 
             //Get managed object from context, otherwise EF wants to insert a new customer
-            var creator = await _context.PortalUsers.FindAsync(picture.Creator.UserId);
+            var creator = await _context.PortalUsers.FindAsync(picture.CreatorId);
             pictureEntry.Creator = creator;
 
             pictureEntry.Image = Convert.FromBase64String(picture.Image);
