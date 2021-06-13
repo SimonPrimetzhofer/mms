@@ -17,3 +17,19 @@ export class UploadImage {
 
     constructor(public pictureEntry: any) {}
 }
+
+export class Login {
+    static readonly type = '[Portal] Login';
+    
+    constructor(public payload: { userName: string, password: string }) {}
+}
+
+export class Register {
+    static readonly type = '[Portal] Register';
+    
+    constructor(public payload: { userName: string, email: string, password: string }) {}
+}
+  
+export class Logout {
+    static readonly type = '[Portal] Logout';
+}

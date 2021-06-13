@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace portal_api.Model
 {
-    public class LoggedInDTO
+    public class UpdateUserDTO
     {
         [Required]
-        public string Token { get; set; }
+        public string Username { get; set; }
+
         [Required]
-        public PortalUser User { get; set; }
+        public string Mail { get; set; }
     }
 }

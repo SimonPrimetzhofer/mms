@@ -3,28 +3,25 @@ import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 
 import { PortalState } from '../portal/state/portal.state'
-import { Login, Logout } from '../portal/state/portal.state.actions'
-
+import { Login, Register, Logout } from '../portal/state/portal.state.actions'
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   userName: string;
   password: string;
+  email: string;
 
-  constructor(private router: Router, private store: Store) {
-    if (this.store.selectSnapshot(PortalState.user)) {
-      this.router.navigate(['/']);
-    }
-  }
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(): void {
     this.userName = '';
     this.password = '';
+    this.email = '';
   }
 
   setUserName($event: any) {
@@ -35,11 +32,15 @@ export class LoginComponent implements OnInit {
     this.password = $event.value;
   }
 
-  loginClick() {
+  setEmail($event: any) {
+    this.email = $event.value;
+  }
+
+  registerClick() {
     if (this.password == '' || this.userName == '') {
       return;
     }
-    this.store.dispatch(new Login({ password: this.password, userName: this.userName })).subscribe(
+    this.store.dispatch(new Register({ password: this.password, email: this.email, userName: this.userName })).subscribe(
       _ => {
         this.router.navigate(['/']);
       },
@@ -48,9 +49,5 @@ export class LoginComponent implements OnInit {
         this.store.dispatch(new Logout);
       }
     );
-  }
-
-  registerClick() {
-    this.router.navigate(['/Register']);
   }
 }

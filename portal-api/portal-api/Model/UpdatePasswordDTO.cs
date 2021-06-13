@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace portal_api.Model
 {
-    public class LoggedInDTO
+    public class UpdatePasswordDTO
     {
         [Required]
-        public string Token { get; set; }
+        public string OldPassword { get; set; }
+
         [Required]
-        public PortalUser User { get; set; }
+        public string NewPassword { get; set; }
     }
 }

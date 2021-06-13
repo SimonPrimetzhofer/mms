@@ -1,12 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import { PortalUser } from './portal-user';
-export interface PictureEntry {
-  creationDate: Date;
+export interface PictureEntryDto {
+  creationDate?: string;
   creator?: PortalUser;
-  creatorUserId?: null | number,
-  image: string;
+  image?: null | string;
   pictureId?: number;
   tag?: null | string;
-  title: string;
+  title?: null | string;
 }
