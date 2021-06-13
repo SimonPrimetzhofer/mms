@@ -37,18 +37,14 @@ export class RegisterComponent implements OnInit {
   }
 
   registerClick() {
-    // console.log(this.password + " register " + this.userName);
     if (this.password == '' || this.userName == '') {
       return;
     }
     this.store.dispatch(new Register({ password: this.password, email: this.email, userName: this.userName })).subscribe(
       _ => {
-        console.log('register successfull');
-        console.log(this.store.selectSnapshot(PortalState.user))
         this.router.navigate(['/']);
       },
       error => {
-        console.log('register failed');
         console.log(error);
         this.store.dispatch(new Logout);
       }

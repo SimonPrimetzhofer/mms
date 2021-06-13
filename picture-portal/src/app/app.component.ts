@@ -38,13 +38,11 @@ export class AppComponent implements OnInit {
     }
     this.cd.detectChanges();
     this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
-    console.log("Logged in: " + this.isLoggedIn) 
   }
 
   settingsClick() {
     this.menuVisible = !this.menuVisible;
     this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
-    console.log("Logged in: " + this.isLoggedIn) 
   }
 
   selectTab($event: any) {
@@ -61,7 +59,6 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    console.log(this.store.selectSnapshot(PortalState.user));
     this.router.navigate(['/Login']);
   }
 

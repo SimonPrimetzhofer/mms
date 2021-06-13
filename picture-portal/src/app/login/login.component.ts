@@ -36,17 +36,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginClick() {
-    console.log(this.password + " " + this.userName);
     if (this.password == '' || this.userName == '') {
       return;
     }
     this.store.dispatch(new Login({ password: this.password, userName: this.userName })).subscribe(
       _ => {
-        console.log('login successfull');
         this.router.navigate(['/']);
       },
       error => {
-        console.log('login failed');
         console.log(error);
         this.store.dispatch(new Logout);
       }
