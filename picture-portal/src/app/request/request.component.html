@@ -13,15 +13,10 @@
                     message="Description is required">
                 </dxi-validation-rule>
             </dxi-item>
-            <dxi-item dataField="imageURL">
+            <dxi-item dataField="image">
                 <dxi-validation-rule 
                     type="required"
-                    message="Image URL is required">
-                </dxi-validation-rule>
-                <dxi-validation-rule 
-                    type="async" 
-                    [message]="'Url must be in the form: ' + origin + '/Pictures/{id}'" 
-                    [validationCallback]="checkUrl">
+                    message="Image is required">
                 </dxi-validation-rule>
             </dxi-item>
         </dxi-item>

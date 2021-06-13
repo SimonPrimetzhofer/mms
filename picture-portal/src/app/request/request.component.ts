@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../api/services';
 import notify from 'devextreme/ui/notify';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-request',
@@ -12,16 +13,19 @@ export class RequestComponent implements OnInit {
   details = {
     title: '',
     description: '',
-    imageURL: ''
+    image: ''
   }
 
   origin = location.origin;
 
   constructor(
-    private requestService: RequestService
+    private requestService: RequestService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => this.details.image = params.id);
   }
 
   submit(event: Event): void {
@@ -31,31 +35,14 @@ export class RequestComponent implements OnInit {
       body: {
         title: this.details.title,
         description: this.details.description,
-        relatedPicture: this.convertURL(this.details.imageURL),
+        relatedPicture: Number(this.details.image),
       }
     }).subscribe(
       () => {
-        this.details = {title: '', description: '', imageURL: ''}
+        this.router.navigate(['/']);
         notify('Request submitted.')
       },
       (error) => notify('Error while submitting request: ' + error?.message, 'error', 5000)
     );
-  }
-
-  convertURL(url: string): number | null {
-    url = url.toLowerCase();
-    if (!url.startsWith(location.origin.toLowerCase() + '/pictures/')) {
-      return null;
-    }
-
-    const id = Number(url.substring(location.origin.length + '/pictures/'.length));
-    if (Number.isNaN(id)) {
-      return null;
-    }
-    return id;
-  }
-
-  checkUrl = async () => {
-    return this.convertURL(this.details.imageURL) !== null;
   }
 }
