@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'Request', component: RequestComponent, canActivate: [ LoginGuard ] },
   { path: 'Admin-Request', component: AdminRequestComponent, canActivate: [ AdminGuard ] },
   { path: 'Settings', component: ProfileSettingsComponent, canActivate: [ LoginGuard ] },
-  { path: '', redirectTo: 'Pictures/all', pathMatch: 'full' },
-  { path: 'Pictures', redirectTo: 'Pictures/all', pathMatch: 'full' }
+  { path: '', redirectTo: 'Pictures/', pathMatch: 'full' },
+  { path: 'Pictures', redirectTo: 'Pictures/', pathMatch: 'full' }
 ];
 
 @NgModule({
