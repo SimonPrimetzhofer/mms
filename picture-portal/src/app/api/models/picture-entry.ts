@@ -3,7 +3,8 @@
 import { PortalUser } from './portal-user';
 export interface PictureEntry {
   creationDate: string;
-  creator?: PortalUser;
+  creator: PortalUser;
+  creatorUserId?: null | number;
   image: string;
   pictureId?: number;
   tag?: null | string;
