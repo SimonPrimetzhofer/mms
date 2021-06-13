@@ -38,7 +38,7 @@ export class PortalState {
 
     @Action(LoadPictures)
     async loadPictures(ctx: StateContext<PortalStateModel>, action: LoadPictures) {
-        const pictures = await this.pictureService.pictureGet().toPromise();
+        const pictures = await (!!action.tag ? this.pictureService.pictureGet_1({ tag: action.tag }) : this.pictureService.pictureGet()).toPromise();
         ctx.patchState(produce(ctx.getState(), draft => {
             draft.pictures = pictures;
         }));
