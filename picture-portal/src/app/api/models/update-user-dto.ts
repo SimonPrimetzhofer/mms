@@ -1,8 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface PortalUser {
-  isAdmin?: boolean;
+export interface UpdateUserDto {
   mail: string;
-  userId?: number;
   username: string;
 }

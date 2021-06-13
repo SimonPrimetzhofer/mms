@@ -375,6 +375,113 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_POST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_DELETE",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/Password": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_POST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalUser"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/User/Login": {
@@ -480,12 +587,16 @@
     "schemas": {
       "LoggedInDTO": {
         "required": [
-          "token"
+          "token",
+          "user"
         ],
         "type": "object",
         "properties": {
           "token": {
             "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PortalUser"
           }
         },
         "additionalProperties": false
@@ -564,6 +675,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "creatorId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "creator": {
             "$ref": "#/components/schemas/PortalUser"
           },
@@ -577,7 +692,6 @@
       "PortalUser": {
         "required": [
           "mail",
-          "pictureEntries",
           "username"
         ],
         "type": "object",
@@ -591,12 +705,6 @@
           },
           "mail": {
             "type": "string"
-          },
-          "pictureEntries": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PictureEntry"
-            }
           },
           "isAdmin": {
             "type": "boolean"
@@ -678,6 +786,38 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePasswordDTO": {
+        "required": [
+          "newPassword",
+          "oldPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string"
+          },
+          "newPassword": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserDTO": {
+        "required": [
+          "mail",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "mail": {
             "type": "string"
           }
         },

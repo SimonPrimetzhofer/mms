@@ -7,10 +7,12 @@ import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './login/login.guard';
 import { PortalComponent } from './portal/portal.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { RegisterComponent } from './register/register.component';
 import { RequestComponent } from './request/request.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
+  { path: 'Register', component: RegisterComponent },
   { path: 'Pictures/:filter', component: PortalComponent },
   { path: 'Edit', component: EditingComponent, canActivate: [ LoginGuard ] },
   { path: 'Request', component: RequestComponent, canActivate: [ LoginGuard ] },

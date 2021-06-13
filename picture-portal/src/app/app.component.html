@@ -7,7 +7,7 @@
     </div>
     <!-- TODO: small popup where a user can choose profile settings, login, logout, etc... -->
     <div class="col-1 btn" id="menuIcon">
-        <span class="dx-icon-menu" style="font-size: 35px" (click)="menuVisible = !menuVisible"></span>
+        <span class="dx-icon-menu" style="font-size: 35px" (click)="settingsClick()"></span>
     </div>
 </div>
 <dx-tabs [dataSource]="tabs" (onItemClick)="selectTab($event)"></dx-tabs>
@@ -20,6 +20,9 @@
     <div *dxTemplate="let data of 'content'">
         <p class="pointer" routerLink="/Settings" (click)="menuVisible = false">Profile settings</p>
         <p class="pointer" routerLink="Pictures/my" (click)="menuVisible = false">My pictures</p>
-        <p class="pointer" (click)="logout()" (click)="menuVisible = false">Logout</p>
+        <p class="pointer" (click)="logout()" (click)="menuVisible = false" *ngIf="isLoggedIn">Logout</p>
+        <p class="pointer" routerLink="/Login" (click)="menuVisible = false" *ngIf="!isLoggedIn">Login</p>
     </div>
 </dx-popover>
+
+<!-- <tui-image-editor-svg-definitions></tui-image-editor-svg-definitions> -->

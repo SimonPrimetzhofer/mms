@@ -6,3 +6,5 @@ export { PortalUser } from './models/portal-user';
 export { RequestItem } from './models/request-item';
 export { RequestItemDto } from './models/request-item-dto';
 export { SignupDto } from './models/signup-dto';
+export { UpdatePasswordDto } from './models/update-password-dto';
+export { UpdateUserDto } from './models/update-user-dto';
