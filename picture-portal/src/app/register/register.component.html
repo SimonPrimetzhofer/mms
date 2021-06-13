@@ -1,7 +1,6 @@
-
 <div class="form">
     <div class="dx-field-set">
-        <div class="dx-fieldset-header">Log in</div>
+        <div class="dx-fieldset-header">Become a member</div>
         
         
         <div class="option mt">
@@ -9,6 +8,16 @@
             <dx-text-box name="Username" (onValueChanged)="setUserName($event)">
                 <dx-validator>
                     <dxi-validation-rule type="required" message="Username is required"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+        </div>
+
+        <div class="option mt">
+            <span>Email</span>
+            <dx-text-box name="Email" (onValueChanged)="setEmail($event)">
+                <dx-validator>
+                    <dxi-validation-rule type="email" message="Please select a valid Email"></dxi-validation-rule>
+                    <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
                 </dx-validator>
             </dx-text-box>
         </div>
@@ -23,9 +32,7 @@
         </div>
 
         <div class="dx-field mt2">
-            <dx-button validation class="bt-login mt" icon="check" type="success" text="Log in" (click)="loginClick()" [useSubmitBehavior]="true"></dx-button>
-            <div class="or-divider">OR</div>
-            <dx-button class="bt-register mt" type="normal" text="Sign up" (click)="registerClick()"></dx-button>
+            <dx-button validation class="bt-register" icon="check" type="success" text="Sign up" (click)="registerClick()" [useSubmitBehavior]="true"></dx-button>
         </div>
     </div>  
 </div>
