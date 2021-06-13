@@ -5,7 +5,7 @@ import produce from 'immer';
 import { PortalUser } from 'src/app/api/models';
 import { PictureService, AuthenticationService } from 'src/app/api/services';
 import { PictureEntry } from '../../api/models/picture-entry';
-import { LoadPictures, SetUser, Login, Register, Logout } from './portal.state.actions';
+import { LoadPictures, SetUser, Login, Register, Logout, UploadImage } from './portal.state.actions';
 
 export interface PortalStateModel {
     pictures: PictureEntry[];
@@ -49,6 +49,11 @@ export class PortalState {
         ctx.patchState(produce(ctx.getState(), draft => {
             draft.user = action.user;
         }));
+    }
+
+    @Action(UploadImage)
+    async uploadImage(ctx: StateContext<PortalStateModel>, action: UploadImage) {
+        await this.pictureService.picturePost({body: action.pictureEntry}).toPromise();
     }
 
     @Selector()

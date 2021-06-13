@@ -1,5 +1,5 @@
 <dx-tile-view direction="vertical" itemTemplate="pictureViewTemplate" [dataSource]="pictures"
-    (onItemClick)="openDetail($event)" [baseItemHeight]="220" [baseItemWidth]="220">
+    (onItemClick)="openDetail($event)" [baseItemHeight]="220" [baseItemWidth]="220" [height]="'100%'">
     <div *dxTemplate="let tile of 'pictureViewTemplate'">
         <dxi-item [widthRatio]="1" [heightRatio]="1" class="pointer">
             <div style="padding: 10px">
@@ -14,7 +14,7 @@
     
     <div *dxTemplate="let data of 'content'">
         <div>
-            Creator: <b>{{ pictureDetail.creator?.username || 'No creator found' }}</b> on {{ convertStringToDate(pictureDetail.creationDate) | date: 'dd.MM.yyyy' }}
+            Creator: <b>{{ pictureDetail.creator?.username || 'No creator found' }}</b> on {{ pictureDetail.creationDate | date: 'dd.MM.yyyy' }}
         </div>
         <div>
 

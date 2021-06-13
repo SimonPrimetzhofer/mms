@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Upload Meme:</h1>
+<div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Give your Meme a Name:</mat-label>
+        <input matInput placeholder="Name" [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Tag</mat-label>
+        <input placeholder="New tag..." matInput [(ngModel)]="data.tag">
+      </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Upload</button>
+</div>
