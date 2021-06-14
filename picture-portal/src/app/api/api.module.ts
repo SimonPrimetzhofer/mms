@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { PictureService } from './services/picture.service';
+import { RequestService } from './services/request.service';
 import { UserService } from './services/user.service';
 
 /**
@@ -16,6 +17,7 @@ import { UserService } from './services/user.service';
   declarations: [],
   providers: [
     PictureService,
+    RequestService,
     UserService,
     ApiConfiguration
   ],

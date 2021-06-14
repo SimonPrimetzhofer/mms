@@ -261,6 +261,92 @@
         }
       }
     },
+    "/api/Request": {
+      "get": {
+        "tags": [
+          "Request"
+        ],
+        "operationId": "Request_GET",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RequestItem"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RequestItem"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RequestItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Request"
+        ],
+        "operationId": "Request_POST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItemDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItemDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItemDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PictureEntry"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PictureEntry"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PictureEntry"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User": {
       "get": {
         "tags": [
@@ -501,12 +587,16 @@
     "schemas": {
       "LoggedInDTO": {
         "required": [
-          "token"
+          "token",
+          "user"
         ],
         "type": "object",
         "properties": {
           "token": {
             "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PortalUser"
           }
         },
         "additionalProperties": false
@@ -585,6 +675,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "creatorId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "creator": {
             "$ref": "#/components/schemas/PortalUser"
           },
@@ -598,7 +692,6 @@
       "PortalUser": {
         "required": [
           "mail",
-          "pictureEntries",
           "username"
         ],
         "type": "object",
@@ -613,14 +706,67 @@
           "mail": {
             "type": "string"
           },
-          "pictureEntries": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PictureEntry"
-            }
-          },
           "isAdmin": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestItem": {
+        "required": [
+          "description",
+          "relatedPerson",
+          "relatedPicture",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "relatedPicturePictureId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "relatedPicture": {
+            "$ref": "#/components/schemas/PictureEntry"
+          },
+          "relatedPersonUserId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "relatedPerson": {
+            "$ref": "#/components/schemas/PortalUser"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestItemDTO": {
+        "required": [
+          "description",
+          "relatedPicture",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "relatedPicture": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

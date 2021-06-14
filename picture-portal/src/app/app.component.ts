@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // user should be logged in already
     this.cd.detectChanges();
-    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated)
+    this.isLoggedIn = this.store.selectSnapshot(PortalState.isAuthenticated);
   }
 
   settingsClick() {

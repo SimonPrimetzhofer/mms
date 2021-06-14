@@ -3,7 +3,7 @@ import { PictureEntry, PortalUser } from "src/app/api/models";
 export class LoadPictures {
     static readonly type = '[Portal] Load pictures';
 
-    constructor() {}
+    constructor(public tag?: string) {}
 }
 
 export class DeletePicture {

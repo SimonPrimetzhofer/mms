@@ -15,11 +15,12 @@ const routes: Routes = [
   { path: 'Register', component: RegisterComponent },
   { path: 'Pictures/:filter', component: PortalComponent },
   { path: 'Edit', component: EditingComponent, canActivate: [ LoginGuard ] },
-  { path: 'Request', component: RequestComponent, canActivate: [ LoginGuard ] },
+  { path: 'Request/:id', component: RequestComponent, canActivate: [ LoginGuard ] },
   { path: 'Admin-Request', component: AdminRequestComponent, canActivate: [ AdminGuard ] },
   { path: 'Settings', component: ProfileSettingsComponent, canActivate: [ LoginGuard ] },
-  { path: '', redirectTo: 'Pictures/all', pathMatch: 'full' },
-  { path: 'Pictures', redirectTo: 'Pictures/all', pathMatch: 'full' }
+  { path: '', redirectTo: 'Pictures/', pathMatch: 'full' },
+  { path: 'Request', redirectTo: 'Pictures/', pathMatch: 'full' },
+  { path: 'Pictures', redirectTo: 'Pictures/', pathMatch: 'full' }
 ];
 
 @NgModule({
