@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { PictureEntry, RequestItem } from '../api/models';
+import { PictureEntry } from '../api/models';
 import { PortalState } from '../portal/state/portal.state';
 import { DeletePicture, EditPicture, LoadPictures } from '../portal/state/portal.state.actions';
-import { RequestService } from '../api/services';
 import { DomSanitizer } from '@angular/platform-browser';
-
 
 @Component({
   selector: 'app-admin-request',
@@ -14,46 +13,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AdminRequestComponent implements OnInit {
 
-  requests: RequestItem[]
-  pictureDetail: PictureEntry;
-  pictureUpdateData: { title: string, tag: string };
   showDetailPopup = false;
+  pictureDetail: PictureEntry;
   inEditMode = false;
-
+  pictureUpdateData: { title: string, tag: string };
 
 
 
   constructor(
     private store: Store,
     private sanitizer: DomSanitizer,
-    private requestService: RequestService
-    ) { }
+    private router: Router) { }
 
   get pictures(): PictureEntry[] {
     return this.store.selectSnapshot(PortalState.pictures);
   }
 
   ngOnInit(): void {
-    this.requestService.requestGet().subscribe(
-      response => {
-        console.log(response);
-        this.requests = response as RequestItem[];
-      },
-      error => {
-        console.log(error);
-      }
-    );
     this.store.dispatch(new LoadPictures());
     console.log("Admin-request");
-  }
-
-  
-  closeRequest($event){
-    console.log($event);
-  }
-
-  openDetailFromRequest($event){
-    console.log($event);
   }
 
   openDetail($event: any) {

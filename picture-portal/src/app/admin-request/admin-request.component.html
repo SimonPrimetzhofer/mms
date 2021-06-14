@@ -1,20 +1,3 @@
-<div class="request-list-container">
-    <dx-list [items]="requests" height="100%">
-        <div *dxTemplate="let item of 'item'">
-            <div class="request" >
-                <div>{{item.title}}</div>
-                <div>{{item.description}}</div>
-                <div>Image Id: {{item.relatedPicturePictureId}}</div>
-                <div class="price">{{item.Price | currency:'USD':'symbol':'1.0'}}</div>
-            </div>
-            <div class="request-buttons">
-                <dx-button icon="trash" type="normal" text="Close" (click)="closeRequest(item)"></dx-button>
-                <dx-button icon="fields" type="normal" text="To image" (click)="openDetailFromRequest(item)"></dx-button>
-            </div>
-        </div>
-    </dx-list>
-</div>
-
 <dx-tile-view direction="vertical" itemTemplate="pictureViewTemplate" [dataSource]="pictures"
     (onItemClick)="openDetail($event)" [baseItemHeight]="220" [baseItemWidth]="220" [height]="'100%'">
     <div *dxTemplate="let tile of 'pictureViewTemplate'">
