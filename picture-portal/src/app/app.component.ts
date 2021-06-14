@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
       router.events
       .pipe(filter(e => e instanceof RouterEvent))
       .subscribe(e => {
+        console.log("Reload portal page")
         if ( this.tabs.length < 3 && !!this.user?.isAdmin ) {
           this.tabs.push({ text: 'Admin-Request' });
         }

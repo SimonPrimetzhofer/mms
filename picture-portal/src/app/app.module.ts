@@ -9,7 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxButtonModule, DxFormModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxValidatorModule, DxValidationGroupModule, DxFileUploaderModule  } from 'devextreme-angular';
+import { DxButtonModule, DxFormModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxValidatorModule, DxValidationGroupModule, DxFileUploaderModule, DxListModule  } from 'devextreme-angular';
 import { EditingComponent, EditingDialog } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -78,7 +78,8 @@ import { MyPicturesComponent } from './my-pictures/my-pictures.component'
     MatIconModule,
     MatFormFieldModule,
     DxValidatorModule,
-    DxValidationGroupModule
+    DxValidationGroupModule,
+    DxListModule
   ],
   entryComponents: [EditingDialog],
   providers: [
