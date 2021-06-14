@@ -1,1 +1,29 @@
-<p>request works!</p>
+<form (submit)="submit($event)">
+    <dx-form [formData]="details">
+        <dxi-item itemType="group">
+            <dxi-item dataField="title">
+                <dxi-validation-rule 
+                    type="required"
+                    message="Title is required">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="description" [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 140 }">
+                <dxi-validation-rule 
+                    type="required"
+                    message="Description is required">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="image">
+                <dxi-validation-rule 
+                    type="required"
+                    message="Image is required">
+                </dxi-validation-rule>
+            </dxi-item>
+        </dxi-item>
+        <dxi-item 
+            itemType="button"
+            horizontalAlignment="left"
+            [buttonOptions]="{text: 'Submit', type: 'success', useSubmitBehavior: true }">
+        </dxi-item>
+    </dx-form>
+</form>

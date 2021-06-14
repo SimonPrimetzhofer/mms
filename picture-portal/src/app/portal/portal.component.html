@@ -17,6 +17,7 @@
             Creator: <b>{{ pictureDetail.creator?.username || 'No creator found' }}</b> on {{ pictureDetail.creationDate | date: 'dd.MM.yyyy' }}
         </div>
         <div>
+        <dx-button (onClick)="report()">Report</dx-button>
 
         </div>
         <img style="padding-top: 10px" [width]="860" [height]="660" [src]="convertBase64ToImage(pictureDetail.image)" />

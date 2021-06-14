@@ -4,7 +4,7 @@ import { PictureEntry } from '../api/models';
 import { PortalState } from './state/portal.state';
 import { LoadPictures } from './state/portal.state.actions';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-portal',
@@ -21,6 +21,7 @@ export class PortalComponent implements OnInit {
   }
 
   constructor(private store: Store,
+    private router: Router,
     private sanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute) { }
 
@@ -41,6 +42,14 @@ export class PortalComponent implements OnInit {
 
   convertStringToDate(dateString: string): Date {
     return new Date(dateString);
+  }
+
+  report() {
+    if (!this.pictureDetail) {
+      return;
+    }
+
+    this.router.navigate(['/Request', this.pictureDetail.pictureId]);
   }
 
 }
