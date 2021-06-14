@@ -9,6 +9,7 @@ import { PortalComponent } from './portal/portal.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { RegisterComponent } from './register/register.component';
 import { RequestComponent } from './request/request.component';
+import { MyPicturesComponent } from './my-pictures/my-pictures.component'
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'Settings', component: ProfileSettingsComponent, canActivate: [ LoginGuard ] },
   { path: '', redirectTo: 'Pictures/', pathMatch: 'full' },
   { path: 'Request', redirectTo: 'Pictures/', pathMatch: 'full' },
-  { path: 'Pictures', redirectTo: 'Pictures/', pathMatch: 'full' }
+  { path: 'Pictures', redirectTo: 'Pictures/', pathMatch: 'full' },
+  { path: 'MyPictures', component: MyPicturesComponent, canActivate: [ LoginGuard ] }
 ];
 
 @NgModule({

@@ -5,10 +5,12 @@ import produce from 'immer';
 import { PortalUser } from 'src/app/api/models';
 import { PictureService, AuthenticationService } from 'src/app/api/services';
 import { PictureEntry } from '../../api/models/picture-entry';
-import { LoadPictures, SetUser, Login, Register, Logout, UploadImage } from './portal.state.actions';
+import { LoadPictures, SetUser, Login, Register, Logout, UploadImage, LoadUserPictures, EditPicture } from './portal.state.actions';
+import { state } from '@angular/animations';
 
 export interface PortalStateModel {
     pictures: PictureEntry[];
+    userPictures: PictureEntry[];
     user: PortalUser;
     token: string;
 }
@@ -17,6 +19,7 @@ export interface PortalStateModel {
     name: 'portal',
     defaults: {
         pictures: null,
+        userPictures: null,
         user: null,
         token: null
     }
@@ -32,16 +35,34 @@ export class PortalState {
     }
 
     @Selector()
+    static userPictures(state: PortalStateModel) {
+        return state.userPictures;
+    }
+
+    @Selector()
     static user(state: PortalStateModel) {
         return state.user;
     }
 
     @Action(LoadPictures)
     async loadPictures(ctx: StateContext<PortalStateModel>, action: LoadPictures) {
-        const pictures = await (!!action.tag ? this.pictureService.pictureGet_1({ tag: action.tag }) : this.pictureService.pictureGet()).toPromise();
+        const pictures = await (!!action.tag ? this.pictureService.pictureGet_2({ tag: action.tag }) : this.pictureService.pictureGet()).toPromise();
         ctx.patchState(produce(ctx.getState(), draft => {
             draft.pictures = pictures;
         }));
+    }
+
+    @Action(LoadUserPictures)
+    async loadUserPictures(ctx: StateContext<PortalStateModel>, action: LoadUserPictures) {
+        const pictures = await (!!action.userId ? this.pictureService.pictureGet_1({ userId: action.userId }) : this.pictureService.pictureGet()).toPromise();
+        ctx.patchState(produce(ctx.getState(), draft => {
+            draft.userPictures = pictures;
+        }));
+    }
+
+    @Action(EditPicture)
+    async editPicture(ctx: StateContext<PortalStateModel>, action: EditPicture) {
+        await this.pictureService.picturePut({ id: action.payload.pictureId, body: action.payload.pictureEntry }).toPromise();
     }
 
     @Action(SetUser)

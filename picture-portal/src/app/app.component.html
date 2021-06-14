@@ -19,7 +19,7 @@
     [(visible)]="menuVisible" target="#menuIcon" position="bottom">
     <div *dxTemplate="let data of 'content'">
         <p class="pointer" routerLink="/Settings" (click)="menuVisible = false">Profile settings</p>
-        <p class="pointer" routerLink="Pictures/my" (click)="menuVisible = false">My pictures</p>
+        <p class="pointer" routerLink="/MyPictures" (click)="menuVisible = false">My pictures</p>
         <p class="pointer" (click)="logout()" (click)="menuVisible = false" *ngIf="isLoggedIn">Logout</p>
         <p class="pointer" routerLink="/Login" (click)="menuVisible = false" *ngIf="!isLoggedIn">Login</p>
     </div>
