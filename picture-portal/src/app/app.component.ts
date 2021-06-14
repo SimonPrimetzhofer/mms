@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
   // tabs are according to route names
   tabs: { text: string }[] = [
       { text: "Pictures" },
-      { text: "Edit" },
-      { text: "Request" }
+      { text: "Edit" }
   ];
 
   isLoggedIn = false;
@@ -35,10 +34,10 @@ export class AppComponent implements OnInit {
       router.events
       .pipe(filter(e => e instanceof RouterEvent))
       .subscribe(e => {
-        if ( this.tabs.length < 4 && !!this.user?.isAdmin ) {
+        if ( this.tabs.length < 3 && !!this.user?.isAdmin ) {
           this.tabs.push({ text: 'Admin-Request' });
         }
-        else if ( this.tabs.length > 3 && !this.user?.isAdmin) {
+        else if ( this.tabs.length > 2 && !this.user?.isAdmin) {
           this.tabs.pop();
         }
       });
