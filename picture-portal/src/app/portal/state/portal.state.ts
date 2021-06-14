@@ -62,6 +62,7 @@ export class PortalState {
 
     @Action(EditPicture)
     async editPicture(ctx: StateContext<PortalStateModel>, action: EditPicture) {
+        console.log(action.payload); //
         await this.pictureService.picturePut({ id: action.payload.pictureId, body: action.payload.pictureEntry }).toPromise();
     }
 
