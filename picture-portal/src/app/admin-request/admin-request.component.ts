@@ -36,7 +36,6 @@ export class AdminRequestComponent implements OnInit {
   ngOnInit(): void {
     this.requestService.requestGet().subscribe(
       response => {
-        console.log(response);
         this.requests = response as RequestItem[];
       },
       error => {
@@ -44,12 +43,9 @@ export class AdminRequestComponent implements OnInit {
       }
     );
     this.store.dispatch(new LoadPictures());
-    console.log("Admin-request");
   }
 
   openDetailFromRequest($event: RequestItem){
-    console.log($event);
-    console.log(this.pictures);
     this.pictures.forEach(picture => {
       if(picture.pictureId == $event.relatedPicturePictureId) {
         this.openDetail({ itemData: picture });

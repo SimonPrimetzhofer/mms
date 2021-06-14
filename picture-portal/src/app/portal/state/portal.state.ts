@@ -62,7 +62,6 @@ export class PortalState {
 
     @Action(EditPicture)
     async editPicture(ctx: StateContext<PortalStateModel>, action: EditPicture) {
-        console.log(action.payload); //
         await this.pictureService.picturePut({ id: action.payload.pictureId, body: action.payload.pictureEntry }).toPromise();
     }
 
@@ -95,7 +94,6 @@ export class PortalState {
 
     @Action(Login)
     login(ctx: StateContext<PortalStateModel>, action: Login) {
-        // console.log("state login...")
         let response = this.authenticationService.login(action.payload.userName, action.payload.password).pipe(
             tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
@@ -109,7 +107,6 @@ export class PortalState {
 
     @Action(Register)
     register(ctx: StateContext<PortalStateModel>, action: Register) {
-        // console.log("state register...")
         let response = this.authenticationService.register(action.payload.userName, action.payload.email, action.payload.password).pipe(
             tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
@@ -123,7 +120,6 @@ export class PortalState {
 
     @Action(Logout)
     logout(ctx: StateContext<PortalStateModel>, action: Logout) {
-        // console.log("state logout...")
         return this.authenticationService.logout().pipe(
             tap(() => {
                 ctx.patchState({
