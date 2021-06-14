@@ -4,6 +4,9 @@ using System;
 
 namespace portal_api.Context
 {
+    /// <summary>
+    /// The main database context storing the data related to the PicturePortal.
+    /// </summary>
     public class PictureContext : DbContext
     {
         public PictureContext(DbContextOptions<PictureContext> options) : base(options) { }
@@ -12,6 +15,10 @@ namespace portal_api.Context
         public DbSet<PortalUser> PortalUsers { set; get; }
         public DbSet<RequestItem> RequestItems { set; get; }
 
+        /// <summary>
+        /// Inserts some test data.
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
 

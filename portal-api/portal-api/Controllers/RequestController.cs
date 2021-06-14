@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace portal_api.Controllers
 {
+    /// <summary>
+    /// The controller responsible for managing reports submitted by users.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class RequestController : ControllerBase
@@ -22,6 +25,10 @@ namespace portal_api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Retreives a list of a requests from the database. This action is only allowed for admins.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<IEnumerable<RequestItem>>> GetRequests()
@@ -35,7 +42,11 @@ namespace portal_api.Controllers
             return await _context.RequestItems.ToListAsync();
         }
 
-
+        /// <summary>
+        /// Create a new report.
+        /// </summary>
+        /// <param name="request">The details of the report. RelatedPicture must be a valid image id.</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<PictureEntry>> PostRequest(RequestItemDTO request)

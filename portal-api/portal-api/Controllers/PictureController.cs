@@ -11,6 +11,9 @@ using System.IO;
 
 namespace portal_api.Controllers
 {
+    /// <summary>
+    /// The controller responsible for managing images.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PictureController : ControllerBase
@@ -68,8 +71,6 @@ namespace portal_api.Controllers
         }
 
         // PUT: api/Pictures/:id
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPictureEntry(int id, PictureEntryDTO picture)
         {
@@ -103,8 +104,6 @@ namespace portal_api.Controllers
         }
 
         // POST: api/Pictures
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<PictureEntry>> PostPictureEntry(PictureEntryDTO picture)
         {

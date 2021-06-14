@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace portal_api.Controllers
 {
+    /// <summary>
+    /// The controller responsible for managing users.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -33,7 +36,10 @@ namespace portal_api.Controllers
             _config = config;
         }
 
-
+        /// <summary>
+        /// Get the current user data.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public Task<PortalUser> Get()
@@ -41,6 +47,11 @@ namespace portal_api.Controllers
             return User.Get(_context);
         }
 
+        /// <summary>
+        /// Updates username and email of the user.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<PortalUser> Update([FromBody] UpdateUserDTO data)
@@ -55,6 +66,11 @@ namespace portal_api.Controllers
             return user;
         }
 
+        /// <summary>
+        /// Updates the password of the user.
+        /// </summary>
+        /// <param name="data">The old and new password of the user.</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost("Password")]
         public async Task<ActionResult<PortalUser>> UpdatePassword([FromBody] UpdatePasswordDTO data)
@@ -74,6 +90,11 @@ namespace portal_api.Controllers
             return user;
         }
 
+        /// <summary>
+        /// Deletes a user.
+        /// Note that this will not log the user out but reject any further requests instead.
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpDelete]
         public async Task<ActionResult> Delete()
@@ -87,6 +108,11 @@ namespace portal_api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Logs a user in.
+        /// </summary>
+        /// <param name="data">Username and password.</param>
+        /// <returns>A JWT token that needs to be included in every subsequent request.</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
         public async Task<ActionResult<LoggedInDTO>> Login([FromBody] LoginDTO data)
@@ -101,6 +127,11 @@ namespace portal_api.Controllers
             return new LoggedInDTO() { User = user, Token = tokenString };
         }
 
+        /// <summary>
+        /// Signs a user up.
+        /// </summary>
+        /// <param name="data">Username, email and password.</param>
+        /// <returns>A JWT token that needs to be included in every subsequent request.</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Signup))]
         public async Task<ActionResult<LoggedInDTO>> Signup([FromBody] SignupDTO data)
@@ -135,6 +166,11 @@ namespace portal_api.Controllers
             return new LoggedInDTO() { User = result, Token = tokenString };
         }
 
+        /// <summary>
+        /// Checks if the password of a user is valid and updates their password hash if necessaary.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns>The user object if the password is valid or null otherwise.</returns>
         private async Task<PortalUser> AuthenticateUser(LoginDTO login)
         {
             PortalUser user = await _context.PortalUsers.SingleOrDefaultAsync(u => u.Username == login.UserName);
@@ -159,6 +195,11 @@ namespace portal_api.Controllers
             }
         }
 
+        /// <summary>
+        /// Generates a new JWT for the given user.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         private string GenerateJSONWebToken(PortalUser userInfo)
         {
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
