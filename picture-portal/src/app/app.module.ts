@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
-import { DxButtonModule, DxFormModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxValidatorModule, DxValidationGroupModule } from 'devextreme-angular';
+import { DxButtonModule, DxFormModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxValidatorModule, DxValidationGroupModule, DxFileUploaderModule  } from 'devextreme-angular';
 import { EditingComponent, EditingDialog } from './editing/editing.component';
 import { RequestComponent } from './request/request.component';
 import { AdminRequestComponent } from './admin-request/admin-request.component';
@@ -30,6 +30,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { RegisterComponent } from './register/register.component';
+import { MyPicturesComponent } from './my-pictures/my-pictures.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { RegisterComponent } from './register/register.component';
     ProfileSettingsComponent,
     LoginComponent,
     EditingDialog,
-    RegisterComponent
+    RegisterComponent,
+    MyPicturesComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,7 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     DxPopoverModule,
     DxPopupModule,
+    DxFileUploaderModule,
     ApiModule.forRoot({
       rootUrl: 'https://localhost:44384'
     }),

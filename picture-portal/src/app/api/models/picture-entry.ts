@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { PortalUser } from './portal-user';
 export interface PictureEntry {
-  creationDate: Date;
+  creationDate: string;
   creator: PortalUser;
   creatorUserId?: null | number;
   image: string;

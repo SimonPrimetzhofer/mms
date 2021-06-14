@@ -6,6 +6,18 @@ export class LoadPictures {
     constructor(public tag?: string) {}
 }
 
+export class LoadUserPictures {
+    static readonly type = '[Portal] Load user pictures';
+
+    constructor(public userId?: string) {}
+}
+
+export class EditPicture {
+    static readonly type = '[My-Pictures] Edit picture';
+
+    constructor(public payload: {pictureId: number, pictureEntry: any}) {}
+}
+
 export class SetUser {
     static readonly type = '[Portal] Set user';
 

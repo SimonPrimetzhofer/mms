@@ -194,7 +194,7 @@ export class PictureService extends BaseService {
   /**
    * Path part for operation pictureGet_1
    */
-  static readonly PictureGet_1Path = '/api/Picture/ByTag/{tag}';
+  static readonly PictureGet_1Path = '/api/Picture/ByUserId/{userId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -203,12 +203,12 @@ export class PictureService extends BaseService {
    * This method doesn't expect any request body.
    */
   pictureGet_1$Plain$Response(params: {
-    tag: string;
+    userId: string;
   }): Observable<StrictHttpResponse<Array<PictureEntry>>> {
 
     const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_1Path, 'get');
     if (params) {
-      rb.path('tag', params.tag, {});
+      rb.path('userId', params.userId, {});
     }
 
     return this.http.request(rb.build({
@@ -229,7 +229,7 @@ export class PictureService extends BaseService {
    * This method doesn't expect any request body.
    */
   pictureGet_1$Plain(params: {
-    tag: string;
+    userId: string;
   }): Observable<Array<PictureEntry>> {
 
     return this.pictureGet_1$Plain$Response(params).pipe(
@@ -244,12 +244,12 @@ export class PictureService extends BaseService {
    * This method doesn't expect any request body.
    */
   pictureGet_1$Response(params: {
-    tag: string;
+    userId: string;
   }): Observable<StrictHttpResponse<Array<PictureEntry>>> {
 
     const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_1Path, 'get');
     if (params) {
-      rb.path('tag', params.tag, {});
+      rb.path('userId', params.userId, {});
     }
 
     return this.http.request(rb.build({
@@ -270,7 +270,7 @@ export class PictureService extends BaseService {
    * This method doesn't expect any request body.
    */
   pictureGet_1(params: {
-    tag: string;
+    userId: string;
   }): Observable<Array<PictureEntry>> {
 
     return this.pictureGet_1$Response(params).pipe(
@@ -281,7 +281,7 @@ export class PictureService extends BaseService {
   /**
    * Path part for operation pictureGet_2
    */
-  static readonly PictureGet_2Path = '/api/Picture/{id}';
+  static readonly PictureGet_2Path = '/api/Picture/ByTag/{tag}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -290,10 +290,97 @@ export class PictureService extends BaseService {
    * This method doesn't expect any request body.
    */
   pictureGet_2$Plain$Response(params: {
+    tag: string;
+  }): Observable<StrictHttpResponse<Array<PictureEntry>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_2Path, 'get');
+    if (params) {
+      rb.path('tag', params.tag, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<PictureEntry>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `pictureGet_2$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  pictureGet_2$Plain(params: {
+    tag: string;
+  }): Observable<Array<PictureEntry>> {
+
+    return this.pictureGet_2$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<PictureEntry>>) => r.body as Array<PictureEntry>)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `pictureGet_2()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  pictureGet_2$Response(params: {
+    tag: string;
+  }): Observable<StrictHttpResponse<Array<PictureEntry>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_2Path, 'get');
+    if (params) {
+      rb.path('tag', params.tag, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<PictureEntry>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `pictureGet_2$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  pictureGet_2(params: {
+    tag: string;
+  }): Observable<Array<PictureEntry>> {
+
+    return this.pictureGet_2$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<PictureEntry>>) => r.body as Array<PictureEntry>)
+    );
+  }
+
+  /**
+   * Path part for operation pictureGet_3
+   */
+  static readonly PictureGet_3Path = '/api/Picture/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `pictureGet_3$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  pictureGet_3$Plain$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<PictureEntry>> {
 
-    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_2Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_3Path, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -311,30 +398,30 @@ export class PictureService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `pictureGet_2$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `pictureGet_3$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  pictureGet_2$Plain(params: {
+  pictureGet_3$Plain(params: {
     id: number;
   }): Observable<PictureEntry> {
 
-    return this.pictureGet_2$Plain$Response(params).pipe(
+    return this.pictureGet_3$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<PictureEntry>) => r.body as PictureEntry)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `pictureGet_2()` instead.
+   * To access only the response body, use `pictureGet_3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  pictureGet_2$Response(params: {
+  pictureGet_3$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<PictureEntry>> {
 
-    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_2Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PictureService.PictureGet_3Path, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -352,15 +439,15 @@ export class PictureService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `pictureGet_2$Response()` instead.
+   * To access the full response (for headers, for example), `pictureGet_3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  pictureGet_2(params: {
+  pictureGet_3(params: {
     id: number;
   }): Observable<PictureEntry> {
 
-    return this.pictureGet_2$Response(params).pipe(
+    return this.pictureGet_3$Response(params).pipe(
       map((r: StrictHttpResponse<PictureEntry>) => r.body as PictureEntry)
     );
   }
@@ -378,7 +465,7 @@ export class PictureService extends BaseService {
    */
   picturePut$Response(params: {
     id: number;
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, PictureService.PicturePutPath, 'put');
@@ -406,7 +493,7 @@ export class PictureService extends BaseService {
    */
   picturePut(params: {
     id: number;
-    body?: PictureEntry
+    body?: PictureEntryDto
   }): Observable<void> {
 
     return this.picturePut$Response(params).pipe(
