@@ -42,6 +42,7 @@ namespace portal_api
                 c.AddPolicy("AllowMethods", options => options.AllowAnyMethod());
             });
 
+            //Add JWT policy
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,6 +64,8 @@ namespace portal_api
                 });
 
             services.AddControllers();
+
+            //Add swagger documentation
             services.AddSwaggerGen(c =>
             {
                 c.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["controller"]}_{e.HttpMethod}");

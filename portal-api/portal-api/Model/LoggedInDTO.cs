@@ -8,6 +8,9 @@ namespace portal_api.Model
 {
     public class LoggedInDTO
     {
+        /// <summary>
+        /// A JWT token.
+        /// </summary>
         [Required]
         public string Token { get; set; }
         [Required]

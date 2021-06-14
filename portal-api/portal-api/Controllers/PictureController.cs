@@ -11,6 +11,9 @@ using System.IO;
 
 namespace portal_api.Controllers
 {
+    /// <summary>
+    /// The controller responsible for managing images.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PictureController : ControllerBase
@@ -29,6 +32,16 @@ namespace portal_api.Controllers
 
             //Include for joining foreign key relation-objects
             return await _context.Pictures
+                .Include(p => p.Creator)
+                .ToListAsync();
+        }
+
+        // GET: api/Pictures/ByUserId/:userId
+        [HttpGet("ByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<PictureEntry>>> GetPicturesByUserId(string userId)
+        {
+            return await _context.Pictures
+                .Where(p => p.CreatorUserId == Convert.ToInt32(userId))
                 .Include(p => p.Creator)
                 .ToListAsync();
         }
@@ -58,17 +71,18 @@ namespace portal_api.Controllers
         }
 
         // PUT: api/Pictures/:id
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPictureEntry(int id, PictureEntry picture)
+        public async Task<IActionResult> PutPictureEntry(int id, PictureEntryDTO picture)
         {
             if (id != picture.PictureId)
             {
                 return BadRequest();
             }
+            var pic = await _context.Pictures.FindAsync(id);
+            pic.Tag = picture.Tag;
+            pic.Title = picture.Title;
 
-            _context.Entry(picture).State = EntityState.Modified;
+            _context.Entry(pic).State = EntityState.Modified;
 
             try
             {
@@ -90,8 +104,6 @@ namespace portal_api.Controllers
         }
 
         // POST: api/Pictures
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<PictureEntry>> PostPictureEntry(PictureEntryDTO picture)
         {
