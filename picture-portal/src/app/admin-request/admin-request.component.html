@@ -1,15 +1,11 @@
 <div class="request-list-container">
     <dx-list [items]="requests" height="100%">
         <div *dxTemplate="let item of 'item'">
-            <div class="request" >
-                <div>{{item.title}}</div>
+            <div class="request" (click)="openDetailFromRequest(item)">
+                <div><b>{{item.title}}</b></div>
                 <div>{{item.description}}</div>
                 <div>Image Id: {{item.relatedPicturePictureId}}</div>
                 <div class="price">{{item.Price | currency:'USD':'symbol':'1.0'}}</div>
-            </div>
-            <div class="request-buttons">
-                <dx-button icon="trash" type="normal" text="Close" (click)="closeRequest(item)"></dx-button>
-                <dx-button icon="fields" type="normal" text="To image" (click)="openDetailFromRequest(item)"></dx-button>
             </div>
         </div>
     </dx-list>
@@ -53,7 +49,7 @@
     </div>
     <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="before" icon="trash" text="Delete">
     <dx-button icon="trash" type="danger" text="Delete" (click)="deleteClick()"></dx-button>
-    <dx-button icon="fields" type="normal" text="Edit" (click)="editClick()" *ngIf="!inEditMode" ></dx-button>
+    <dx-button icon="background" type="normal" text="Edit" (click)="editClick()" *ngIf="!inEditMode" ></dx-button>
     <dx-button icon="close" type="normal" text="Cancel" (click)="cancelClick()" *ngIf="inEditMode" ></dx-button>
     <dx-button icon="check" type="success" text="Save" (click)="saveClick()" *ngIf="inEditMode" ></dx-button>
     </dxi-toolbar-item>

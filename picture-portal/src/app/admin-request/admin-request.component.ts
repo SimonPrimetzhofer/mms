@@ -47,13 +47,15 @@ export class AdminRequestComponent implements OnInit {
     console.log("Admin-request");
   }
 
-  
-  closeRequest($event){
+  openDetailFromRequest($event: RequestItem){
     console.log($event);
-  }
-
-  openDetailFromRequest($event){
-    console.log($event);
+    console.log(this.pictures);
+    this.pictures.forEach(picture => {
+      if(picture.pictureId == $event.relatedPicturePictureId) {
+        this.openDetail({ itemData: picture });
+        return;
+      }
+    });
   }
 
   openDetail($event: any) {
