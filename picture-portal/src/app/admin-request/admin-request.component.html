@@ -3,9 +3,7 @@
         <div *dxTemplate="let item of 'item'">
             <div class="request" (click)="openDetailFromRequest(item)">
                 <div><b>{{item.title}}</b></div>
-                <div>{{item.description}}</div>
-                <div>Image Id: {{item.relatedPicturePictureId}}</div>
-                <div class="price">{{item.Price | currency:'USD':'symbol':'1.0'}}</div>
+                <div class="request-description">{{item.description}}</div>
             </div>
         </div>
     </dx-list>
