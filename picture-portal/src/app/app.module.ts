@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PortalComponent } from './portal/portal.component';
 import { DxButtonModule, DxFormModule, DxPopoverModule, DxPopupModule, DxTabsModule, DxTextBoxModule, DxTileViewModule, DxValidatorModule, DxValidationGroupModule, DxFileUploaderModule  } from 'devextreme-angular';
@@ -51,6 +52,7 @@ import { MyPicturesComponent } from './my-pictures/my-pictures.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxsModule.forRoot([PortalState]),
+    NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     DxTileViewModule,
     DxTabsModule,
