@@ -5,7 +5,7 @@ import produce from 'immer';
 import { PortalUser } from 'src/app/api/models';
 import { PictureService, AuthenticationService } from 'src/app/api/services';
 import { PictureEntry } from '../../api/models/picture-entry';
-import { LoadPictures, SetUser, Login, Register, Logout, UploadImage, LoadUserPictures, EditPicture } from './portal.state.actions';
+import { LoadPictures, SetUser, Login, Register, Logout, UploadImage, LoadUserPictures, DeletePicture, EditPicture } from './portal.state.actions';
 import { state } from '@angular/animations';
 
 export interface PortalStateModel {
@@ -77,6 +77,11 @@ export class PortalState {
         await this.pictureService.picturePost({body: action.pictureEntry}).toPromise();
     }
 
+    @Action(DeletePicture)
+    async deletePicture(ctx: StateContext<PortalStateModel>, action: DeletePicture) {
+        await this.pictureService.pictureDelete({ id: action.pictureId }).toPromise();
+    }
+
     @Selector()
     static token(state: PortalStateModel) {
         return state.token;
@@ -89,7 +94,6 @@ export class PortalState {
 
     @Action(Login)
     login(ctx: StateContext<PortalStateModel>, action: Login) {
-        // console.log("state login...")
         let response = this.authenticationService.login(action.payload.userName, action.payload.password).pipe(
             tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
@@ -103,7 +107,6 @@ export class PortalState {
 
     @Action(Register)
     register(ctx: StateContext<PortalStateModel>, action: Register) {
-        // console.log("state register...")
         let response = this.authenticationService.register(action.payload.userName, action.payload.email, action.payload.password).pipe(
             tap((result: { user: PortalUser, token: string }) => {
                 ctx.patchState({
@@ -117,7 +120,6 @@ export class PortalState {
 
     @Action(Logout)
     logout(ctx: StateContext<PortalStateModel>, action: Logout) {
-        // console.log("state logout...")
         return this.authenticationService.logout().pipe(
             tap(() => {
                 ctx.patchState({

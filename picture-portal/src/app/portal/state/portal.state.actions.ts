@@ -6,6 +6,12 @@ export class LoadPictures {
     constructor(public tag?: string) {}
 }
 
+export class DeletePicture {
+    static readonly type = '[Portal] Delete pictures';
+
+    constructor(public pictureId?: number) {}
+}
+
 export class LoadUserPictures {
     static readonly type = '[Portal] Load user pictures';
 

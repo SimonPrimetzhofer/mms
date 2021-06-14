@@ -1,1 +1,54 @@
-<p>admin-request works!</p>
+<div class="request-list-container">
+    <dx-list [items]="requests" height="100%">
+        <div *dxTemplate="let item of 'item'">
+            <div class="request" (click)="openDetailFromRequest(item)">
+                <div><b>{{item.title}}</b></div>
+                <div class="request-description">{{item.description}}</div>
+            </div>
+        </div>
+    </dx-list>
+</div>
+
+<dx-tile-view direction="vertical" itemTemplate="pictureViewTemplate" [dataSource]="pictures"
+    (onItemClick)="openDetail($event)" [baseItemHeight]="220" [baseItemWidth]="220" [height]="'100%'">
+    <div *dxTemplate="let tile of 'pictureViewTemplate'">
+        <dxi-item [widthRatio]="1" [heightRatio]="1" class="pointer">
+            <div style="padding: 10px">
+                {{ tile.title }}
+                <img style="padding-top: 10px" [width]="200" [height]="180" [src]="convertBase64ToImage(tile.image)" />
+            </div>
+        </dxi-item>
+    </div>
+</dx-tile-view>
+
+<dx-popup [width]="900" [height]="400" [title]="pictureDetail?.title" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="showDetailPopup">
+    
+    <div *dxTemplate="let data of 'content'" >
+        <div style="float: left;" *ngIf="!inEditMode">
+            <div>
+                Creator: <b>{{ pictureDetail.creator?.username || 'No creator found' }}</b> on {{ pictureDetail.creationDate | date: 'dd.MM.yyyy' }}
+            </div>
+            <div>
+                Id: {{ pictureDetail.pictureId }}
+            </div>
+            <div>
+                Tag: {{ pictureDetail.tag }}
+            </div>
+        </div>
+        <dx-form [(formData)]="pictureUpdateData" [width]="500" style="float: left" *ngIf="inEditMode">
+            <dxi-item itemType="group">
+                <dxi-item dataField="title"></dxi-item>
+                <dxi-item dataField="tag"></dxi-item>
+            </dxi-item>
+        </dx-form>
+        <div>
+            <img style="padding-top: 10px; float: right;" [height]="300" [src]="convertBase64ToImage(pictureDetail.image)" />
+        </div>
+    </div>
+    <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="before" icon="trash" text="Delete">
+    <dx-button icon="trash" type="danger" text="Delete" (click)="deleteClick()"></dx-button>
+    <dx-button icon="background" type="normal" text="Edit" (click)="editClick()" *ngIf="!inEditMode" ></dx-button>
+    <dx-button icon="close" type="normal" text="Cancel" (click)="cancelClick()" *ngIf="inEditMode" ></dx-button>
+    <dx-button icon="check" type="success" text="Save" (click)="saveClick()" *ngIf="inEditMode" ></dx-button>
+    </dxi-toolbar-item>
+</dx-popup>
