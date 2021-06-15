@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using portal_api.Context;
 
 namespace portal_api.Migrations
 {
     [DbContext(typeof(PictureContext))]
-    partial class PictureContextModelSnapshot : ModelSnapshot
+    [Migration("20210615073616_AllowDeletedPicture")]
+    partial class AllowDeletedPicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,7 +185,7 @@ namespace portal_api.Migrations
                     b.HasOne("portal_api.Model.PictureEntry", "RelatedPicture")
                         .WithMany()
                         .HasForeignKey("RelatedPicturePictureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("RelatedPerson");
 

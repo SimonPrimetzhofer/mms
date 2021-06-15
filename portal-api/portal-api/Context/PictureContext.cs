@@ -31,6 +31,13 @@ namespace portal_api.Context
                 .WithMany()
                 .OnDelete(DeleteBehavior.SetNull);
 
+            builder.Entity<RequestItem>()
+                .HasOne(e => e.RelatedPicture)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
             base.OnModelCreating(builder);
 
             PortalUser user1 = new PortalUser

@@ -21,7 +21,6 @@ namespace portal_api.Model
 
         public int? RelatedPicturePictureId { set; get; }
 
-        [Required]
         public PictureEntry RelatedPicture { set; get; }
 
         public int? RelatedPersonUserId { set; get; }
