@@ -21,6 +21,15 @@ namespace portal_api.Context
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<PictureEntry>()
+                .HasOne(e => e.Creator)
+                .WithMany(e => e.PictureEntries)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<RequestItem>()
+                .HasOne(e => e.RelatedPerson)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
 
             base.OnModelCreating(builder);
 

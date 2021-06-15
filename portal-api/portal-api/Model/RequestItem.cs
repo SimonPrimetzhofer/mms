@@ -26,7 +26,6 @@ namespace portal_api.Model
 
         public int? RelatedPersonUserId { set; get; }
 
-        [Required]
         public PortalUser RelatedPerson { set; get; }
 
         
